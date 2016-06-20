@@ -1,0 +1,32 @@
+audioCompress.m:	wObjOut2.alpha1=0.001;	% 大==>爬升快 (For fs=44100)
+audioCompress.m:	wObjOut2.alpha2=0.01;	% 大==>下降快 (For fs=44100)
+audioCompress.m:				gain2(i)=opt.alpha1*gain1(i)+(1-opt.alpha1)*gain2(i-1);
+audioCompress.m:				gain2(i)=opt.alpha2*gain1(i)+(1-opt.alpha2)*gain2(i-1);
+beatsearchDP.m:function Backtrack_beats = beatsearchDP(S_onset_str,indx,Backtrack_Tempo,sgsrate,tt,cand_num,search_boundary,alpha,mode)
+beatsearchDP.m:% Backtrack_beats = beatsearchDP(S_onset_str,indx,Backtrack_Tempo,sgsrate,tt,cand_num,search_boundary,alpha,mode)
+beatsearchDP.m:%  alpha : Which controls how tightly the estimated tempo is enforced within 
+beatsearchDP.m:[state1_cum_prob,state1_indx,skip] = cand_SearchRange(S_onset_str,sr_indx,period,search_range,cand_num,alpha,tracking_end_flag,mode);
+beatsearchDP.m:    [state2_cum_prob,state2_indx,skip] = cand_SearchRange(S_onset_str,sr_indx,period,search_range,cand_num,alpha,tracking_end_flag,mode);
+beatsearchDP.m:function [state_prob,state_indx,skip] = cand_SearchRange(S_onset_str,sr_indx,period,search_range,cand_num,alpha,tracking_end_flag,mode)
+beatsearchDP.m:srww = exp(-0.5*((alpha*log(range/-period)).^2)); % Search Region Weighting Window
+btOptSet.m:btOpt.alpha=1.7;	% Controls how tightly the estimated tempo is enforced within the search range during beat tracking. (default:1.7)  
+frame2pitch2.m:	%		pfWeight=1+linspace(0, ptOpt.alpha, length(pf))';
+frame2pitch2.m:			pfWeight=1-linspace(0, ptOpt.alpha, length(pf))';	% alpha is less than 1.
+mfccOptSet.m:mfccOpt.alpha = 1;			% For VTLN
+ptOptSet.m:ptOpt.alpha=0.5;		% This is used for pfWeight, used in frame2pitch. Only for ACF and method=1.
+ptOptSet.m:				% alpha=0 corresponds exactly to ACF with method=1, which is likely to have double-pitch error
+ptOptSet.m:				% alpha=1 corresponds roghtly to ACF with method=2, which is likely to have half-pitch error
+ptOptSet.m:				% The best value of alpha is obtained via exhaustive search
+reverbMoorerPrmSet.m:alpha=5;
+reverbMoorerPrmSet.m:tdl.delay=alpha*[190, 759, 44, 190, 9, 123, 706, 119, 384, 66, 35, 75, 419, 4, 79, 66, 53, 194];
+reverbMoorerPrmSet.m:lpCombPrmDelay=alpha*[1579, 1949, 2113, 2293, 2467, 2647];
+reverbMoorerPrmSet.m:apfPrm.delay=alpha*307;
+reverbMoorerPrmSet_b.m:alpha=5;
+reverbMoorerPrmSet_b.m:tdl.delay=alpha*[190, 759, 44, 190, 9, 123, 706, 119, 384, 66, 35, 75, 419, 4, 79, 66, 53, 194];
+reverbMoorerPrmSet_b.m:lpCombPrmDelay=alpha*[1579, 1949, 2113, 2293, 2467, 2647];
+reverbMoorerPrmSet_b.m:apfPrm.delay=alpha*307;
+tempoCurve2beat.m:Backtrack_beats_backward_indx = beatsearchDP(oscObj.signal, DP_begin_indx, tempoCurve, btOpt.sgsrate*2,tempogramObj.time_index,2,[0.4 1.9],btOpt.alpha,1);
+tempoCurve2beat.m:Backtrack_beats_forward_indx =  beatsearchDP(oscObj.signal, DP_begin_indx, tempoCurve, btOpt.sgsrate*2,tempogramObj.time_index,2,[0.4 1.9],btOpt.alpha,2);
+wave2mfcc.m:	fftMag = interp1(1:halfIndex,fftMag,1:1/opt.alpha:halfIndex)';	% VTLN
+xTickLabelRename.m:%		vecToBeLabeled={'\pi', '2^5', 'e^{-3}', '\alpha'};
+xTickLabelRotate.m:%		xTickLabel={'Rock', 'Jazz', 'Classic', 'Country', 'Metal', '\alpha', '\pi', '\beta'};

@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of lookupTableWrite</title>
+  <meta name="keywords" content="lookupTableWrite">
+  <meta name="description" content="lookupTableWrite: Write a lookup table to a file">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; lookupTableWrite.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>lookupTableWrite
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>lookupTableWrite: Write a lookup table to a file</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function lookupTableWrite(tableFunName, tableInvFunName, xRange, xySf, tableName, plotOpt) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">lookupTableWrite: Write a lookup table to a file
+    Usage: lookupTableWrite(tableFunName, tableInvFunName, xRange, xySf, tableName, plotOpt)
+    所給定的查表函數必須是嚴格遞增(reverse=0)或是嚴格遞減(reverse=1)。
+    所產生的 inc 檔案會被用在 tableLookupByRangeSearch in utility.cpp
+
+    For example, to generate the table for mixLogSum:
+        tableFunName='mixLogSum';
+        tableInvFunName='mixLogSumInv';
+        xRange=[0, 25];
+        xySf=[2^15, 2^15];
+        tableName='mixLogSumTable';
+        plotOpt=1;
+        lookupTableWrite(tableFunName, tableInvFunName, xRange, xySf, tableName, plotOpt);
+
+    Another example, to generate the table for log:
+        tableFunName='log';
+        tableInvFunName='exp';
+        xRange=[0.1, 5];
+        xySf=[2^10, 2^10];
+        tableName='logTable';
+        plotOpt=1;
+        lookupTableWrite(tableFunName, tableInvFunName, xRange, xySf, tableName, plotOpt);</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="lookupTableWrite.html" class="code" title="function lookupTableWrite(tableFunName, tableInvFunName, xRange, xySf, tableName, plotOpt)">lookupTableWrite</a>	lookupTableWrite: Write a lookup table to a file</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="lookupTableWrite.html" class="code" title="function lookupTableWrite(tableFunName, tableInvFunName, xRange, xySf, tableName, plotOpt)">lookupTableWrite</a>	lookupTableWrite: Write a lookup table to a file</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function lookupTableWrite(tableFunName, tableInvFunName, xRange, xySf, tableName, plotOpt)</a>
+0002 <span class="comment">%lookupTableWrite: Write a lookup table to a file</span>
+0003 <span class="comment">%    Usage: lookupTableWrite(tableFunName, tableInvFunName, xRange, xySf, tableName, plotOpt)</span>
+0004 <span class="comment">%    所給定的查表函數必須是嚴格遞增(reverse=0)或是嚴格遞減(reverse=1)。</span>
+0005 <span class="comment">%    所產生的 inc 檔案會被用在 tableLookupByRangeSearch in utility.cpp</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">%    For example, to generate the table for mixLogSum:</span>
+0008 <span class="comment">%        tableFunName='mixLogSum';</span>
+0009 <span class="comment">%        tableInvFunName='mixLogSumInv';</span>
+0010 <span class="comment">%        xRange=[0, 25];</span>
+0011 <span class="comment">%        xySf=[2^15, 2^15];</span>
+0012 <span class="comment">%        tableName='mixLogSumTable';</span>
+0013 <span class="comment">%        plotOpt=1;</span>
+0014 <span class="comment">%        lookupTableWrite(tableFunName, tableInvFunName, xRange, xySf, tableName, plotOpt);</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">%    Another example, to generate the table for log:</span>
+0017 <span class="comment">%        tableFunName='log';</span>
+0018 <span class="comment">%        tableInvFunName='exp';</span>
+0019 <span class="comment">%        xRange=[0.1, 5];</span>
+0020 <span class="comment">%        xySf=[2^10, 2^10];</span>
+0021 <span class="comment">%        tableName='logTable';</span>
+0022 <span class="comment">%        plotOpt=1;</span>
+0023 <span class="comment">%        lookupTableWrite(tableFunName, tableInvFunName, xRange, xySf, tableName, plotOpt);</span>
+0024 
+0025 <span class="comment">%    Roger Jang, 20070811</span>
+0026 
+0027 <span class="keyword">if</span> nargin&lt;1, <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>; <span class="keyword">return</span>; <span class="keyword">end</span>
+0028 
+0029 tableName=upper(tableName);
+0030 
+0031 <span class="comment">% ====== Define the constants of expTable</span>
+0032 xMinOrig=xRange(1); xMaxOrig=xRange(2);
+0033 xSf=xySf(1); ySf=xySf(2);        <span class="comment">% Scaling factors on x and y</span>
+0034 x=[xMinOrig, xMaxOrig];
+0035 table=feval(tableFunName, x);        <span class="comment">% 只是用來找 yMin 和 yMax</span>
+0036 yMin=round(ySf*min(table)); yMax=round(ySf*max(table));
+0037 xMin=round(xMinOrig*xSf); xMax=round(xMaxOrig*xSf);
+0038 <span class="comment">% 反運算以找回x的值</span>
+0039 tableInt=yMin:yMax;
+0040 x2=feval(tableInvFunName, (tableInt+0.5)/ySf);     <span class="comment">% x 的右界值: x in [x(i-1), x(i)] ===&gt; log(1+exp(x)) = y(i)</span>
+0041 x2=x2(1:end-1);                    <span class="comment">% 刪除最後一個。如果 table 的長度是 n，x 的長度就是 n-1</span>
+0042 xInt=round(x2*xSf);
+0043 tableSize=length(xInt);
+0044 <span class="keyword">if</span> plotOpt
+0045     plot(xInt, (tableInt(1:end-1)+tableInt(2:end))/2, <span class="string">'.-'</span>);
+0046 <span class="keyword">end</span>
+0047 
+0048 <span class="comment">% 為了進行 binary range search, xInt 必須是由小排到大</span>
+0049 reverse=0;
+0050 <span class="keyword">if</span> xInt(1)&gt;xInt(end)
+0051     xInt=fliplr(xInt);
+0052     reverse=1;
+0053 <span class="keyword">end</span>
+0054 
+0055 <span class="comment">% ====== Write table related constants</span>
+0056 file=[tableName, <span class="string">'VAR.h'</span>];
+0057 fid=fopen(file, <span class="string">'w'</span>);
+0058 fprintf(fid, <span class="string">'#ifndef %s_H\n'</span>, tableName);
+0059 fprintf(fid, <span class="string">'#define %s_H\n'</span>, tableName);
+0060 fprintf(fid, <span class="string">'\n'</span>);
+0061 fprintf(fid, <span class="string">'#define %s_SIZE %d\n'</span>, tableName, tableSize);
+0062 fprintf(fid, <span class="string">'#define %s_X_SF %d\n'</span>, tableName, xSf);
+0063 fprintf(fid, <span class="string">'#define %s_Y_SF %d\n'</span>, tableName, ySf);
+0064 fprintf(fid, <span class="string">'#define %s_X_MIN %d\n'</span>, tableName, xMin);
+0065 fprintf(fid, <span class="string">'#define %s_X_MAX %d\n'</span>, tableName, xMax);
+0066 fprintf(fid, <span class="string">'#define %s_X_MIN_ORIG %f\n'</span>, tableName, xMinOrig);
+0067 fprintf(fid, <span class="string">'#define %s_X_MAX_ORIG %f\n'</span>, tableName, xMaxOrig);
+0068 fprintf(fid, <span class="string">'#define %s_Y_MIN %d\n'</span>, tableName, yMin);
+0069 fprintf(fid, <span class="string">'#define %s_Y_MAX %d\n'</span>, tableName, yMax);
+0070 fprintf(fid, <span class="string">'#define %s_REVERSE %d\n'</span>, tableName, reverse);
+0071 fprintf(fid, <span class="string">'\n'</span>);
+0072 fprintf(fid, <span class="string">'#endif\n'</span>);
+0073 fclose(fid);
+0074 fprintf(<span class="string">'Saved %s\n'</span>, file);
+0075 
+0076 <span class="comment">% ====== Write table entries</span>
+0077 file=[tableName, <span class="string">'.inc'</span>];
+0078 fid=fopen(file, <span class="string">'w'</span>);
+0079 fprintf(fid, <span class="string">'int %s[%d]={%d'</span>, tableName, tableSize, xInt(1));
+0080 <span class="keyword">for</span> i=2:tableSize
+0081     fprintf(fid, <span class="string">', %d'</span>, xInt(i));
+0082 <span class="keyword">end</span>
+0083 fprintf(fid, <span class="string">'};\n'</span>);
+0084 fclose(fid);
+0085 fprintf(<span class="string">'Saved %s\n'</span>, file);
+0086 
+0087 <span class="keyword">return</span>
+0088 
+0089 <span class="comment">% ====== Write the txt content of table</span>
+0090 file=<span class="string">'tableInt.txt'</span>;
+0091 fid=fopen(file, <span class="string">'w'</span>);
+0092 fprintf(fid, <span class="string">'%d\n'</span>, xInt);
+0093 fclose(fid);
+0094 fprintf(<span class="string">'Saved %s\n'</span>, file);
+0095 
+0096 <span class="comment">% ====== Write the bin content of table</span>
+0097 file=<span class="string">'tableInt.bin'</span>;
+0098 fid=fopen(file, <span class="string">'wb'</span>);
+0099 fwrite(fid, xInt, <span class="string">'integer*4'</span>);
+0100 fclose(fid);
+0101 fprintf(<span class="string">'Saved %s\n'</span>, file);
+0102 
+0103 <span class="comment">% ====== Self demo</span>
+0104 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0105 tableFunName=<span class="string">'mixLogSum'</span>;
+0106 tableInvFunName=<span class="string">'mixLogSumInv'</span>;
+0107 xRange=[0, 25];
+0108 xySf=[2^15, 2^15];
+0109 tableName=<span class="string">'mixLogSumTable'</span>;
+0110 plotOpt=1;
+0111 <span class="comment">%feval(mfilename, tableFunName, tableInvFunName, xRange, xySf, tableName, plotOpt);</span>
+0112 <a href="lookupTableWrite.html" class="code" title="function lookupTableWrite(tableFunName, tableInvFunName, xRange, xySf, tableName, plotOpt)">lookupTableWrite</a>(tableFunName, tableInvFunName, xRange, xySf, tableName, plotOpt);</pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

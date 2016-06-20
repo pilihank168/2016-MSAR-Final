@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of scalarQuantize</title>
+  <meta name="keywords" content="scalarQuantize">
+  <meta name="description" content="scalarQuantize: Scalar quantization">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; scalarQuantize.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>scalarQuantize
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>scalarQuantize: Scalar quantization</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [output, index]=scalarQuantize(input, level) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">scalarQuantize: Scalar quantization
+    Usage:[output, index]=scalarQuantiz(input, level)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [output, index]=scalarQuantize(input, level)</a>
+0002 <span class="comment">%scalarQuantize: Scalar quantization</span>
+0003 <span class="comment">%    Usage:[output, index]=scalarQuantiz(input, level)</span>
+0004 
+0005 <span class="comment">%    Roger Jang, 20050121</span>
+0006 
+0007 <span class="keyword">if</span> nargin&lt;1; <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>; <span class="keyword">return</span>; <span class="keyword">end</span>
+0008 
+0009 boundary=(level(1:end-1)+level(2:end))/2;
+0010 index=quantiz(input, boundary)+1;
+0011 output=level(index);
+0012 
+0013 <span class="comment">% ====== Selfdemo</span>
+0014 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0015 input=10*rand(1, 8);
+0016 level=[2 4 8];
+0017 [output, index]=feval(mfilename, input, level);
+0018 fprintf(<span class="string">'input = %s\n'</span>, mat2str(input));
+0019 fprintf(<span class="string">'level = %s\n'</span>, mat2str(level));
+0020 fprintf(<span class="string">'output = %s(input, level) = %s\n'</span>, mfilename, mat2str(output));</pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

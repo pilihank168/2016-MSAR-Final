@@ -1,0 +1,4 @@
+SSN=1034	songName=不了情	language=	singer=張鳳鳳	start=0	size=576
+SSN=1040	songName=深秋	language=國語	singer=尤雅	start=577	size=352
+SSN=1070	songName=夜空	language=國語	singer=青山	start=930	size=360
+SSN=1086	songName=綠島小夜曲	language=國語	singer=紫薇	start=1291	size=536

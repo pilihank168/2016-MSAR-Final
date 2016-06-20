@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of isFunction</title>
+  <meta name="keywords" content="isFunction">
+  <meta name="description" content="isFunction: Test is the given M-file is a function">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; isFunction.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>isFunction
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>isFunction: Test is the given M-file is a function</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function output = isFunction(filename); </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> isFunction: Test is the given M-file is a function</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function output = isFunction(filename);</a>
+0002 <span class="comment">% isFunction: Test is the given M-file is a function</span>
+0003 
+0004 <span class="comment">%    Roger Jang, 20030712</span>
+0005 
+0006 <span class="keyword">if</span> nargin&lt;1; <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>; <span class="keyword">return</span>; <span class="keyword">end</span>
+0007 
+0008 fid=fopen(filename);
+0009 line=fgetl(fid);
+0010 fclose(fid);
+0011 
+0012 start=regexp(line, <span class="string">'^function'</span>);
+0013 output=0;
+0014 <span class="keyword">if</span> ~isempty(start)
+0015     output=1;
+0016 <span class="keyword">end</span>
+0017 
+0018 <span class="comment">% ===== Self demo</span>
+0019 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0020 fileName=<span class="string">'isFunction.m'</span>;
+0021 output=feval(mfilename, <span class="string">'isFunction.m'</span>);
+0022 <span class="keyword">if</span> output
+0023     fprintf(<span class="string">'The given M-file &quot;%s&quot; is a function.'</span>, fileName);
+0024 <span class="keyword">else</span>
+0025     fprintf(<span class="string">'The given M-file &quot;%s&quot; is not a function.'</span>, fileName);
+0026 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of cellVecPlot</title>
+  <meta name="keywords" content="cellVecPlot">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; cellVecPlot.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>cellVecPlot
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function vecPacked=cellVecPlot(cellVec) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function vecPacked=cellVecPlot(cellVec)</a>
+0002 
+0003 <span class="keyword">if</span> nargin&lt;1, <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>; <span class="keyword">return</span>; <span class="keyword">end</span>
+0004 
+0005 vecNum=length(cellVec);
+0006 len=zeros(vecNum,1);
+0007 <span class="keyword">for</span> i=1:vecNum
+0008     len(i)=length(cellVec{i});
+0009 <span class="keyword">end</span>
+0010 maxLen=max(len);
+0011 
+0012 vecPacked=nan*ones(maxLen, vecNum);
+0013 <span class="keyword">for</span> i=1:vecNum
+0014     vecPacked(1:len(i), i)=cellVec{i}(:)';
+0015 <span class="keyword">end</span>
+0016 
+0017 plot(vecPacked);
+0018 
+0019 
+0020 <span class="comment">% ====== Self demo</span>
+0021 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0022 cellVec{1}=[1 2 3];
+0023 cellVec{2}=[2 3 5 6 4];
+0024 cellVec{3}=[4 3 2 6 3 2 3];
+0025 
+0026 output=feval(mfilename, cellVec);</pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

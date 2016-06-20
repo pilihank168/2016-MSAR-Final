@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of rowCount</title>
+  <meta name="keywords" content="rowCount">
+  <meta name="description" content="rowCount: Unique element counts for a given matrix.">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; rowCount.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>rowCount
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>rowCount: Unique element counts for a given matrix.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [uniq_row, count] = rowCount(A) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> rowCount: Unique element counts for a given matrix.
+    [uniq_row, count] = rowCount(A)
+    A: input matrix where each row is viewed as an &quot;element&quot;
+    uniq_row: sorted listing of unique row in A
+    count: counts for each returned unique row
+
+    If A is a cell array of strings, then the output uniq_row is also a
+    cell array of strings.
+
+    Roger Jang, 19981125, 20071205</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [uniq_row, count] = rowCount(A)</a>
+0002 <span class="comment">% rowCount: Unique element counts for a given matrix.</span>
+0003 <span class="comment">%    [uniq_row, count] = rowCount(A)</span>
+0004 <span class="comment">%    A: input matrix where each row is viewed as an &quot;element&quot;</span>
+0005 <span class="comment">%    uniq_row: sorted listing of unique row in A</span>
+0006 <span class="comment">%    count: counts for each returned unique row</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%    If A is a cell array of strings, then the output uniq_row is also a</span>
+0009 <span class="comment">%    cell array of strings.</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">%    Roger Jang, 19981125, 20071205</span>
+0012 
+0013 <span class="keyword">if</span> nargin&lt;1, <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>; <span class="keyword">return</span>, <span class="keyword">end</span>
+0014 <span class="keyword">if</span> isempty(A), uniq_row=[]; count=[]; <span class="keyword">return</span>; <span class="keyword">end</span>
+0015 
+0016 cellstr_input = 0;
+0017 <span class="keyword">if</span> iscellstr(A),
+0018     A = char(A);
+0019     cellstr_input = 1;
+0020 <span class="keyword">end</span>
+0021 term = sortrows(A);
+0022 tmp1 = term;
+0023 tmp1(end+1, :) = tmp1(<span class="keyword">end</span>, :) + 1;
+0024 tmp2 = tmp1(1:end-1, :) - tmp1(2:<span class="keyword">end</span>, :);
+0025 index = find(sum(abs(tmp2), 2) ~= 0);
+0026 uniq_row = term(index, :);
+0027 count = diff([0; index]);
+0028 
+0029 <span class="comment">% Rearrange according to decending order of counts</span>
+0030 <span class="comment">%[count, index] = sort(count);</span>
+0031 <span class="comment">%count = flipud(count);</span>
+0032 <span class="comment">%index = flipud(index);</span>
+0033 <span class="comment">%uniq_row = uniq_row(index, :);</span>
+0034 
+0035 <span class="comment">% Return cell array of string if given cell array of string</span>
+0036 <span class="keyword">if</span> cellstr_input,
+0037     uniq_row = cellstr(uniq_row);
+0038 <span class="keyword">end</span>
+0039 
+0040 <span class="comment">% ========== Subfunction ==========</span>
+0041 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0042 A = [    <span class="string">'一台'</span>;<span class="keyword">...</span>
+0043     <span class="string">'八爪'</span>; <span class="keyword">...</span>
+0044     <span class="string">'三光'</span>; <span class="keyword">...</span>
+0045     <span class="string">'人性'</span>; <span class="keyword">...</span>
+0046     <span class="string">'八爪'</span>; <span class="keyword">...</span>
+0047     <span class="string">'三光'</span>; <span class="keyword">...</span>
+0048     <span class="string">'八爪'</span>];
+0049 fprintf(<span class="string">'Original string matrix:\n'</span>);
+0050 disp(A);
+0051 fprintf(<span class="string">'After sorting and finding counts of unique rows:\n'</span>);
+0052 [uniq_row, count] = feval(mfilename, A);
+0053 <span class="keyword">for</span> i = 1:length(count),
+0054     fprintf(<span class="string">'%s ==&gt; %g\n'</span>, uniq_row(i, :), count(i));
+0055 <span class="keyword">end</span>
+0056 fprintf(<span class="string">'Original cell array of strings:\n'</span>);
+0057 A = {<span class="string">'abc'</span>;<span class="string">'acd'</span>;<span class="string">'ad'</span>;<span class="string">'a'</span>;<span class="string">'bc'</span>;<span class="string">'ad'</span>;<span class="string">'acd'</span>;<span class="string">'acd'</span>}; 
+0058 disp(A);
+0059 [uniq_row, count] = feval(mfilename, A);
+0060 fprintf(<span class="string">'After sorting and finding counts of unique rows:\n'</span>);
+0061 <span class="keyword">for</span> i = 1:length(count),
+0062     fprintf(<span class="string">'%s ==&gt; %g\n'</span>, uniq_row{i}, count(i));
+0063 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

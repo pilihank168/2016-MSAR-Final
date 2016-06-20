@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of jpegResize</title>
+  <meta name="keywords" content="jpegResize">
+  <meta name="description" content="jpegResize: Resize a jpeg photo">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; jpegResize.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>jpegResize
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>jpegResize: Resize a jpeg photo</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [width, height]=jpegResize(jpgFile, ratio, newJpgFile) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> jpegResize: Resize a jpeg photo
+    Usage: function [width, height]=jpegResize(jpgFile, ratio, newJpgFile)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="split.html" class="code" title="function tokenList = split(str, delimiter, mode)">split</a>	split: Split a string based on a given delimiter</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li><li><a href="#_sub2" class="code">function tokenList = split(str, delimiter)</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [width, height]=jpegResize(jpgFile, ratio, newJpgFile)</a>
+0002 <span class="comment">% jpegResize: Resize a jpeg photo</span>
+0003 <span class="comment">%    Usage: function [width, height]=jpegResize(jpgFile, ratio, newJpgFile)</span>
+0004 
+0005 <span class="keyword">if</span> nargin&lt;1, <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>; <span class="keyword">return</span>; <span class="keyword">end</span>
+0006 <span class="keyword">if</span> nargin&lt;2, ratio=0.5; <span class="keyword">end</span>
+0007 <span class="keyword">if</span> nargin&lt;3, newJpgFile=[jpgFile(1:end-4), <span class="string">'_new.jpg'</span>]; <span class="keyword">end</span>
+0008 
+0009 cmd=[<span class="string">'d:\users\jang\matlab\toolbox\utility\jpegRS.exe '</span>, jpgFile];
+0010 [s, w]=dos(cmd);
+0011 items=<a href="split.html" class="code" title="function tokenList = split(str, delimiter, mode)">split</a>(deblank(w), <span class="string">' '</span>);
+0012 width=eval(items{1});
+0013 height=eval(items{2});
+0014 newHeight=round(height*ratio);
+0015 newWidth=round(width*ratio);
+0016 cmd=[<span class="string">'d:\users\jang\matlab\toolbox\utility\jpegRS.exe '</span>, jpgFile, <span class="string">' '</span>, int2str(newWidth), <span class="string">' '</span>, int2str(newHeight), <span class="string">' '</span>, newJpgFile];
+0017 dos(cmd);
+0018 fprintf(<span class="string">'Resizing %s to %s (ratio=%f)\n'</span>, jpgFile, newJpgFile, ratio);
+0019 
+0020 <span class="comment">% ====== Self demo</span>
+0021 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0022 jpgFile=<span class="string">'IMG_8242.jpg'</span>;
+0023 ratio=0.25;
+0024 feval(mfilename, jpgFile, ratio);
+0025 
+0026 <span class="comment">% ====== Sub-function</span>
+0027 <a name="_sub2" href="#_subfunctions" class="code">function tokenList = split(str, delimiter)</a>
+0028 <span class="comment">% SPLIT Split a string based on a given delimiter</span>
+0029 <span class="comment">%    Usage:</span>
+0030 <span class="comment">%    tokenList = split(str, delimiter)</span>
+0031 
+0032 <span class="comment">%    Roger Jang, 20010324</span>
+0033 
+0034 tokenList = {};
+0035 remain = str;
+0036 i = 1;
+0037 <span class="keyword">while</span> ~isempty(remain),
+0038     [token, remain] = strtok(remain, delimiter);
+0039     tokenList{i} = token;
+0040     i = i+1;
+0041 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of getColor</title>
+  <meta name="keywords" content="getColor">
+  <meta name="description" content="getColor: Get color from a rotating palette">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; getColor.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>getColor
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>getColor: Get color from a rotating palette</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function color=getColor(index, useVec) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> getColor: Get color from a rotating palette
+    Usage: color=getColor(index)
+
+    For example:
+        for i=1:6
+            line(1:10, rand(1, 10), 'color', getColor(i), 'lineWidth', 3);
+        end
+        legend('Color 1', 'Color 2', 'Color 3', 'Color 4', 'Color 5', 'Color 6');</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function color=getColor(index, useVec)</a>
+0002 <span class="comment">% getColor: Get color from a rotating palette</span>
+0003 <span class="comment">%    Usage: color=getColor(index)</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%    For example:</span>
+0006 <span class="comment">%        for i=1:6</span>
+0007 <span class="comment">%            line(1:10, rand(1, 10), 'color', getColor(i), 'lineWidth', 3);</span>
+0008 <span class="comment">%        end</span>
+0009 <span class="comment">%        legend('Color 1', 'Color 2', 'Color 3', 'Color 4', 'Color 5', 'Color 6');</span>
+0010 
+0011 <span class="comment">% Roger Jang, 20040910, 20071009</span>
+0012 
+0013 <span class="keyword">if</span> nargin&lt;1, index=1; <span class="keyword">end</span>
+0014 <span class="keyword">if</span> nargin&lt;2, useVec=0; <span class="keyword">end</span>
+0015 
+0016 <span class="keyword">if</span> ~useVec
+0017     allColor={<span class="string">'b'</span>, <span class="string">'r'</span>, <span class="string">'g'</span>, <span class="string">'m'</span>, <span class="string">'c'</span>, <span class="string">'y'</span>};
+0018     color=allColor{mod(index-1, length(allColor))+1};
+0019 <span class="keyword">else</span>
+0020     allColor=[0 0 1; 1 0 0; 0 1 0; 1 0 1; 0 1 1; 1 1 0];
+0021     color=allColor(mod(index-1, length(allColor))+1, :);
+0022 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of needlePlot</title>
+  <meta name="keywords" content="needlePlot">
+  <meta name="description" content="needlePlot: Needle plots in 3D.">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; needlePlot.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>needlePlot
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>needlePlot: Needle plots in 3D.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function needlePlot(data) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">needlePlot: Needle plots in 3D.
+    Usage: needlePlot(data)
+
+    Type &quot;needle&quot; for a self-demo.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function needlePlot(data)</a>
+0002 <span class="comment">%needlePlot: Needle plots in 3D.</span>
+0003 <span class="comment">%    Usage: needlePlot(data)</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%    Type &quot;needle&quot; for a self-demo.</span>
+0006 
+0007 <span class="comment">%    Roger Jang, April-18-97, 20071009</span>
+0008 
+0009 <span class="keyword">if</span> nargin == 0, <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>; <span class="keyword">return</span>, <span class="keyword">end</span>
+0010 
+0011 x = data(:, 1);
+0012 y = data(:, 2);
+0013 z = data(:, 3);
+0014 figure
+0015 plot3(x, y, z, <span class="string">'o'</span>);
+0016 bottom = min(z);
+0017 data_n = length(x);
+0018 <span class="keyword">for</span> i = 1:data_n,
+0019     line([x(i) x(i)], [y(i), y(i)], [bottom, z(i)], <span class="string">'color'</span>, <span class="string">'c'</span>);
+0020 <span class="keyword">end</span>
+0021 axis([-inf inf -inf inf -inf inf]);
+0022 xlabel(<span class="string">'X'</span>); ylabel(<span class="string">'Y'</span>); zlabel(<span class="string">'Z'</span>);
+0023 title(<span class="string">'Needle plot for data points'</span>);
+0024 set(gca, <span class="string">'box'</span>, <span class="string">'on'</span>);
+0025 <span class="comment">%frot3d on</span>
+0026 rotate3d on
+0027 hold on
+0028 plot(x, y);
+0029 hold off
+0030 
+0031 <span class="comment">%====== 2D interpolation</span>
+0032 figure;
+0033 point_n = 21;
+0034 xi = linspace(min(x), max(x), point_n);
+0035 yi = linspace(min(y), max(y), point_n);
+0036 [xx, yy] = meshgrid(xi, yi);
+0037 [xx, yy, zz] = griddata(x, y, z, xx, yy);
+0038 mesh(xx, yy, zz);
+0039 hold on
+0040 plot3(x, y, z, <span class="string">'o'</span>);
+0041 hold off
+0042 xlabel(<span class="string">'X'</span>); ylabel(<span class="string">'Y'</span>); zlabel(<span class="string">'Z'</span>);
+0043 title(<span class="string">'Data points and 2D interpolation'</span>);
+0044 set(gca, <span class="string">'box'</span>, <span class="string">'on'</span>);
+0045 axis([-inf inf -inf inf -inf inf]);
+0046 <span class="comment">%frot3d on</span>
+0047 rotate3d on
+0048 
+0049 <span class="comment">%====== Contour</span>
+0050 figure;
+0051 <span class="comment">% Contour</span>
+0052 contour(xx, yy, zz, 10);
+0053 hold on
+0054 line(x, y, <span class="string">'linestyle'</span>, <span class="string">'o'</span>);
+0055 hold off
+0056 xlabel(<span class="string">'X'</span>); ylabel(<span class="string">'Y'</span>);
+0057 title(<span class="string">'Data points and contours for 2D interpolation'</span>);
+0058 axis image
+0059 
+0060 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0061 t = linspace(0, 5*pi)';
+0062 x = t.*sin(t);
+0063 y = t.*cos(t);
+0064 z = t;
+0065 feval(mfilename, [x y z]);</pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

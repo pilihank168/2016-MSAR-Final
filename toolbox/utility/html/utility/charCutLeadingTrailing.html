@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of charCutLeadingTrailing</title>
+  <meta name="keywords" content="charCutLeadingTrailing">
+  <meta name="description" content="charCutLeadingTrailing: Cut leading/trailing chars within a given string">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; charCutLeadingTrailing.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>charCutLeadingTrailing
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>charCutLeadingTrailing: Cut leading/trailing chars within a given string</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function newString = charCutLeadingTrailing(string, theChar); </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">charCutLeadingTrailing: Cut leading/trailing chars within a given string
+    Usage: newString = charCutLeadingTrailing(string, theChar)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function newString = charCutLeadingTrailing(string, theChar);</a>
+0002 <span class="comment">%charCutLeadingTrailing: Cut leading/trailing chars within a given string</span>
+0003 <span class="comment">%    Usage: newString = charCutLeadingTrailing(string, theChar)</span>
+0004 
+0005 <span class="comment">%    Roger Jang, 20090615</span>
+0006 
+0007 <span class="keyword">if</span> nargin&lt;1, <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>; <span class="keyword">return</span>; <span class="keyword">end</span>
+0008 <span class="keyword">if</span> nargin&lt;2, theChar=<span class="string">' '</span>; <span class="keyword">end</span>
+0009 
+0010 newString=string;
+0011 <span class="keyword">while</span> newString(1)==theChar
+0012     newString(1)=[];
+0013 <span class="keyword">end</span>
+0014 <span class="keyword">while</span> newString(end)==theChar
+0015     newString(end)=[];
+0016 <span class="keyword">end</span>
+0017 
+0018 <span class="comment">% ====== Self demo</span>
+0019 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0020 string=<span class="string">'...And the time comes....'</span>;
+0021 theChar=<span class="string">'.'</span>;
+0022 output=feval(mfilename, string, theChar);
+0023 fprintf(<span class="string">'input=%s\n'</span>, string);
+0024 fprintf(<span class="string">'theChar=%s\n'</span>, theChar);
+0025 fprintf(<span class="string">'output=%s\n'</span>, output);</pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

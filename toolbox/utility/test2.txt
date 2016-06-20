@@ -1,0 +1,13 @@
+D:\users\jang\matlab\toolbox/goMexCompile.m
+D:\users\jang\matlab\toolbox/asr/wave2mfccTest.m
+D:\users\jang\matlab\toolbox/asr/wave2mfccTest2.m
+D:\users\jang\matlab\toolbox/dcprOthers/dtw_to_be_clean/dtw1test.m
+D:\users\jang\matlab\toolbox/dcprOthers/dtw_to_be_clean/goDemoDigitRecognition.m
+D:\users\jang\matlab\toolbox/dcprOthers/dtw_to_be_clean/goDemoSpeechPath01.m
+D:\users\jang\matlab\toolbox/dcprOthers/dtw_to_be_clean/goDemoSpeechPath02.m
+D:\users\jang\matlab\toolbox/dcprOthers/dtw_to_be_clean/goDtw2testResult.m
+D:\users\jang\matlab\toolbox/dcprOthers/dtw_to_be_clean/goDtwTestSpeed.m
+D:\users\jang\matlab\toolbox/sap/wave2mfcc.m
+D:\users\jang\matlab\toolbox/sap/wave2mfcc12.m
+D:\users\jang\matlab\toolbox/sap/mex/wave2mfccTest.m
+D:\users\jang\matlab\toolbox/sap/mex/wave2mfccTest2.m

@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of matrixDuplicate</title>
+  <meta name="keywords" content="matrixDuplicate">
+  <meta name="description" content="matrixDuplicate: Matrix duplication">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; matrixDuplicate.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>matrixDuplicate
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>matrixDuplicate: Matrix duplication</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function out = matrixDuplicate(mat, p, q) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">matrixDuplicate: Matrix duplication
+    Usage: out = matrixDuplicate(mat, p, q)
+
+        matrixDuplicate(mat, p, q) returns a big matrix containing p X q mat.
+
+    For example:
+
+        a = [1 2; 3 4];
+        matrixDuplicate(a, 3, 4)
+
+        ans =
+
+             1     2     1     2     1     2     1     2
+             3     4     3     4     3     4     3     4
+             1     2     1     2     1     2     1     2
+             3     4     3     4     3     4     3     4
+             1     2     1     2     1     2     1     2
+             3     4     3     4     3     4     3     4
+
+    See also <a href="elementDuplicate.html" class="code" title="function out = elementDuplicate(mat, p, q)">elementDuplicate</a>.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function out = matrixDuplicate(mat, p, q)</a>
+0002 <span class="comment">%matrixDuplicate: Matrix duplication</span>
+0003 <span class="comment">%    Usage: out = matrixDuplicate(mat, p, q)</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%        matrixDuplicate(mat, p, q) returns a big matrix containing p X q mat.</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">%    For example:</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%        a = [1 2; 3 4];</span>
+0010 <span class="comment">%        matrixDuplicate(a, 3, 4)</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%        ans =</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%             1     2     1     2     1     2     1     2</span>
+0015 <span class="comment">%             3     4     3     4     3     4     3     4</span>
+0016 <span class="comment">%             1     2     1     2     1     2     1     2</span>
+0017 <span class="comment">%             3     4     3     4     3     4     3     4</span>
+0018 <span class="comment">%             1     2     1     2     1     2     1     2</span>
+0019 <span class="comment">%             3     4     3     4     3     4     3     4</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">%    See also elementDuplicate.</span>
+0022 
+0023 <span class="comment">% Roger Jang, 1995</span>
+0024 
+0025 out = mat((1:size(mat, 1))'*ones(1,p), (1:size(mat,2))'*ones(1,q));</pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

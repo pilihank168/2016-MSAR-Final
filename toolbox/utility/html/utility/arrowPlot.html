@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of arrowPlot</title>
+  <meta name="keywords" content="arrowPlot">
+  <meta name="description" content="arrowPlot: Plot an arrow on an existing plot">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; arrowPlot.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>arrowPlot
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>arrowPlot: Plot an arrow on an existing plot</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function arrowH = arrowPlot(beginPoint, endPoint, color) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> arrowPlot: Plot an arrow on an existing plot
+    Usage: arrowH = arrowPlot(beingPoint, endPoint)
+        arrowH: Returned handle to the plotted arrow
+        beginPoint: Start point of the arrow (must be a complex number) 
+        endPoint: End point of the arrow (must be a complex number) 
+        color: Color of the arrow (optional, should be 3-element vector)
+
+    For instance:
+
+    arrowPlot(1+j, 2+3j, [1 0 0]); axis image</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="arrowPlot.html" class="code" title="function arrowH = arrowPlot(beginPoint, endPoint, color)">arrowPlot</a>	arrowPlot: Plot an arrow on an existing plot</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="arrowPlot.html" class="code" title="function arrowH = arrowPlot(beginPoint, endPoint, color)">arrowPlot</a>	arrowPlot: Plot an arrow on an existing plot</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function arrowH = arrowPlot(beginPoint, endPoint, color)</a>
+0002 <span class="comment">% arrowPlot: Plot an arrow on an existing plot</span>
+0003 <span class="comment">%    Usage: arrowH = arrowPlot(beingPoint, endPoint)</span>
+0004 <span class="comment">%        arrowH: Returned handle to the plotted arrow</span>
+0005 <span class="comment">%        beginPoint: Start point of the arrow (must be a complex number)</span>
+0006 <span class="comment">%        endPoint: End point of the arrow (must be a complex number)</span>
+0007 <span class="comment">%        color: Color of the arrow (optional, should be 3-element vector)</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%    For instance:</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">%    arrowPlot(1+j, 2+3j, [1 0 0]); axis image</span>
+0012 
+0013 <span class="comment">%    Roger Jang, 20001130</span>
+0014 
+0015 <span class="keyword">if</span> nargin==0, <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>; <span class="keyword">return</span>; <span class="keyword">end</span>
+0016 
+0017 arrowX = [-1 0 -0.1 -0.12 -0.02 -0.12 -0.1 0];
+0018 arrowY = [0 0 0.1 0.1 0 -0.1 -0.1 0];
+0019 basicArrow = 1+arrowX + j*arrowY;
+0020 newArrow = (endPoint-beginPoint)*basicArrow + beginPoint;
+0021 
+0022 arrowH = line(real(newArrow), imag(newArrow), <span class="string">'color'</span>, <span class="string">'k'</span>, <span class="string">'clip'</span>, <span class="string">'off'</span>);
+0023 <span class="keyword">if</span> nargin==3,
+0024     set(arrowH, <span class="string">'color'</span>, color);
+0025 <span class="keyword">end</span>
+0026 
+0027 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0028 <span class="keyword">for</span> i=1:10,
+0029     beginPoint = rand+j*rand;
+0030     endPoint = rand+j*rand;
+0031     color = [rand, rand, rand];
+0032     <a href="arrowPlot.html" class="code" title="function arrowH = arrowPlot(beginPoint, endPoint, color)">arrowPlot</a>(beginPoint, endPoint, color);
+0033     box on;
+0034     axis image;
+0035 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

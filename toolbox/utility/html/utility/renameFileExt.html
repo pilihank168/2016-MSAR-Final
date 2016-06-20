@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of renameFileExt</title>
+  <meta name="keywords" content="renameFileExt">
+  <meta name="description" content="renameFileExt: Rename the extension name of files recursively under a specific directory recursively">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; renameFileExt.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>renameFileExt
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>renameFileExt: Rename the extension name of files recursively under a specific directory recursively</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function renameFileExt(directory, ext1, ext2) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> renameFileExt: Rename the extension name of files recursively under a specific directory recursively
+    Usage: renameFileExt(directory, ext1, ext2)
+        directory: target directory
+        ext1: original extension
+        ext2: newextension</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="recursiveFileList.html" class="code" title="function allData=recursiveFileList(directoryList, ext, maxFileNumInEachDir)">recursiveFileList</a>	RecursiveFileList: List files with a given extension recursively</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function renameFileExt(directory, ext1, ext2)</a>
+0002 <span class="comment">% renameFileExt: Rename the extension name of files recursively under a specific directory recursively</span>
+0003 <span class="comment">%    Usage: renameFileExt(directory, ext1, ext2)</span>
+0004 <span class="comment">%        directory: target directory</span>
+0005 <span class="comment">%        ext1: original extension</span>
+0006 <span class="comment">%        ext2: newextension</span>
+0007 
+0008 <span class="comment">%    Roger Jang, 20060802</span>
+0009 
+0010 files=<a href="recursiveFileList.html" class="code" title="function allData=recursiveFileList(directoryList, ext, maxFileNumInEachDir)">recursiveFileList</a>(directory, ext1);
+0011 fileNum=length(files);
+0012 
+0013 <span class="keyword">for</span> i=1:fileNum
+0014     path=files(i).path;
+0015     [a, b, c, d]=fileparts(path);
+0016     path2=fullfile(a, [b, [<span class="string">'.'</span>, ext2], d]);
+0017     fprintf(<span class="string">'%d/%d: %s ===&gt; %s\n'</span>, i, fileNum, path, path2);
+0018     [status, message, messageId]=movefile(path, path2, <span class="string">'f'</span>);
+0019     <span class="keyword">if</span> status~=1
+0020         fprintf(<span class="string">'Cannot rename file!\n'</span>);
+0021     <span class="keyword">end</span>
+0022 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

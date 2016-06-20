@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of narySearch4max</title>
+  <meta name="keywords" content="narySearch4max">
+  <meta name="description" content="narySearch4max: N-ary-search-like method for 1-d optimization">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; narySearch4max.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>narySearch4max
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>narySearch4max: N-ary-search-like method for 1-d optimization</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [minPair, allPairs]=narySearch4max(objFunction, op, varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> narySearch4max: N-ary-search-like method for 1-d optimization
+    Usage: [minPair, allPairs]=narySearch4max(objFunction, op, varargin)
+        objFunction: Objective function
+        op: Optimization parameters
+            op.searchRange: Search range
+            op.division: No. of division for each depth (a odd number)
+            op.depth: depth for search
+            op.plotOpt: Option for plotting
+        varargin: Input arguments for objFunction
+        minPair: minPair(1) is the minimizing x, minPair(2) is the corresponding value of objFunction
+        allPairs: All pairs of function evalustions
+
+    Number of evaluation counts = op.division+[(op.division-1)*2+1-3]*(op.depth-1).
+    If op.searchRange=[0, 1000], op.division=11, op.depth=3, then the minimum search step is 1.
+
+    For example:
+
+        objFunction='humps';
+        op.searchRange=[0.1, 0.95];
+        op.division=11;
+        op.depth=3;
+        op.plotOpt=1;
+        [minPair, allPairs]=narySearch4max(objFunction, op);
+
+    See also <a href="binarySearch4min.html" class="code" title="function [minPair, allPairs]=binarySearch4min(objFunction, op, varargin)">binarySearch4min</a>.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [minPair, allPairs]=narySearch4max(objFunction, op, varargin)</a>
+0002 <span class="comment">% narySearch4max: N-ary-search-like method for 1-d optimization</span>
+0003 <span class="comment">%    Usage: [minPair, allPairs]=narySearch4max(objFunction, op, varargin)</span>
+0004 <span class="comment">%        objFunction: Objective function</span>
+0005 <span class="comment">%        op: Optimization parameters</span>
+0006 <span class="comment">%            op.searchRange: Search range</span>
+0007 <span class="comment">%            op.division: No. of division for each depth (a odd number)</span>
+0008 <span class="comment">%            op.depth: depth for search</span>
+0009 <span class="comment">%            op.plotOpt: Option for plotting</span>
+0010 <span class="comment">%        varargin: Input arguments for objFunction</span>
+0011 <span class="comment">%        minPair: minPair(1) is the minimizing x, minPair(2) is the corresponding value of objFunction</span>
+0012 <span class="comment">%        allPairs: All pairs of function evalustions</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%    Number of evaluation counts = op.division+[(op.division-1)*2+1-3]*(op.depth-1).</span>
+0015 <span class="comment">%    If op.searchRange=[0, 1000], op.division=11, op.depth=3, then the minimum search step is 1.</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">%    For example:</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">%        objFunction='humps';</span>
+0020 <span class="comment">%        op.searchRange=[0.1, 0.95];</span>
+0021 <span class="comment">%        op.division=11;</span>
+0022 <span class="comment">%        op.depth=3;</span>
+0023 <span class="comment">%        op.plotOpt=1;</span>
+0024 <span class="comment">%        [minPair, allPairs]=narySearch4max(objFunction, op);</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">%    See also binarySearch4min.</span>
+0027 
+0028 <span class="comment">%    Roger Jang, 20070216, 20091124</span>
+0029 
+0030 <span class="keyword">if</span> nargin&lt;1; <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>; <span class="keyword">return</span>; <span class="keyword">end</span>
+0031 <span class="keyword">if</span> nargin&lt;2;
+0032     op.searchRange=[-2, 2];
+0033     op.division=11;
+0034     op.depth=3;
+0035     op.plotOpt=0;
+0036 <span class="keyword">end</span>
+0037 
+0038 xStart=op.searchRange(1); xStop=op.searchRange(2);
+0039 <span class="keyword">if</span> (xStart==xStop)
+0040     error(<span class="string">'The given search range is an empty set!'</span>);
+0041 <span class="keyword">end</span>
+0042 x=linspace(xStart, xStop, op.division);
+0043 y=zeros(1, op.division);
+0044 fprintf(<span class="string">'depth=%d/%d, range=%s\n'</span>, 1, op.depth, mat2str([xStart, xStop]));
+0045 <span class="keyword">for</span> j=1:length(x)
+0046     t0=clock;
+0047     y(j)=feval(objFunction, x(j), varargin{:});
+0048     fprintf(<span class="string">'\tj=%d/%d, x=%g, y=%g, time=%g sec\n'</span>, j, op.division, x(j), y(j), etime(clock, t0));
+0049 <span class="keyword">end</span>
+0050 <span class="keyword">if</span> sum(abs(diff(y)))==0
+0051     fprintf(<span class="string">'Warning: Obj. function has the same value at the first stage. Perhaps you should change the search range for a better search result.\n'</span>);
+0052 <span class="keyword">end</span>
+0053 allPairs=[x; y];
+0054 [yMax, indexMax]=max(y); xMax=x(indexMax);
+0055 <span class="keyword">for</span> i=2:op.depth
+0056     index1=indexMax-1; <span class="keyword">if</span> index1&lt;1, index1=1; <span class="keyword">end</span>
+0057     index2=indexMax+1; <span class="keyword">if</span> index2&gt;length(x), index2=length(x); <span class="keyword">end</span>
+0058     xStart=x(index1); xStop=x(index2);
+0059     fprintf(<span class="string">'depth=%d/%d, range=%s\n'</span>, i, op.depth, mat2str([xStart, xStop]));
+0060     <span class="comment">% ====== left side</span>
+0061     <span class="keyword">if</span> (xStart~=xMax)
+0062         x1=linspace(xStart, xMax, op.division);
+0063         y1=zeros(1, op.division);
+0064         <span class="keyword">for</span> j=1:length(x1)-1
+0065             t0=clock;
+0066             y1(j)=feval(objFunction, x1(j), varargin{:});
+0067             fprintf(<span class="string">'\tj=%d/%d, x=%g, y=%g, time=%g sec\n'</span>, j, 2*op.division-1, x1(j), y1(j), etime(clock, t0));
+0068         <span class="keyword">end</span>
+0069         x1(end)=[]; y1(end)=[];
+0070     <span class="keyword">else</span>
+0071         x1=[]; y1=[];
+0072     <span class="keyword">end</span>
+0073     <span class="comment">% ====== right side</span>
+0074     <span class="keyword">if</span> (xMax~=xStop)
+0075         x2=linspace(xMax, xStop, op.division);
+0076         y2=zeros(1, op.division);
+0077         <span class="keyword">for</span> j=2:length(x2)
+0078             t0=clock;
+0079             y2(j)=feval(objFunction, x2(j), varargin{:});
+0080             fprintf(<span class="string">'\tj=%d/%d, x=%g, y=%g, time=%g sec\n'</span>, j+op.division-1, 2*op.division-1, x2(j), y2(j), etime(clock, t0));
+0081         <span class="keyword">end</span>
+0082         x2(1)=[]; y2(1)=[];
+0083     <span class="keyword">else</span>
+0084         x2=[]; y2=[];
+0085     <span class="keyword">end</span>
+0086     <span class="comment">% ====== Combine both sides</span>
+0087     x=[x1, xMax, x2];
+0088     y=[y1, yMax, y2];
+0089     [yMax, indexMax]=max(y); xMax=x(indexMax);
+0090     allPairs=[allPairs, [[x1, x2]; [y1, y2]]];
+0091 <span class="keyword">end</span>
+0092 minPair=[xMax, yMax]';
+0093 
+0094 <span class="keyword">if</span> op.plotOpt
+0095     x=allPairs(1,:); y=allPairs(2,:);
+0096     [x, index]=sort(x); y=y(index);
+0097     subplot(2,1,1);        <span class="comment">% Original plot</span>
+0098     plot(x, y);
+0099     xlabel(<span class="string">'x'</span>); ylabel(<span class="string">'Obj. function'</span>);
+0100     line(allPairs(1,:), allPairs(2,:), <span class="string">'lineStyle'</span>, <span class="string">'none'</span>, <span class="string">'marker'</span>, <span class="string">'.'</span>, <span class="string">'color'</span>, <span class="string">'m'</span>);
+0101     <span class="keyword">for</span> i=1:size(allPairs, 2)
+0102         text(allPairs(1,i), allPairs(2,i), int2str(i), <span class="string">'vertical'</span>, <span class="string">'top'</span>, <span class="string">'hori'</span>, <span class="string">'center'</span>);
+0103     <span class="keyword">end</span>
+0104     line(minPair(1), minPair(2), <span class="string">'lineStyle'</span>, <span class="string">'none'</span>, <span class="string">'marker'</span>, <span class="string">'square'</span>, <span class="string">'color'</span>, <span class="string">'r'</span>);
+0105     boundary=axis; yMin=boundary(3);
+0106     <span class="keyword">for</span> i=1:size(allPairs, 2)
+0107         line(allPairs(1,i)*[1 1], [yMin, allPairs(2,i)], <span class="string">'color'</span>, <span class="string">'r'</span>);
+0108     <span class="keyword">end</span>
+0109     box on; grid on; axis tight
+0110     subplot(2,1,2);
+0111     plot(x, y);        <span class="comment">% Closeup plot</span>
+0112      xlabel(<span class="string">'x'</span>); ylabel(<span class="string">'Obj. function'</span>);
+0113     line(allPairs(1,:), allPairs(2,:), <span class="string">'lineStyle'</span>, <span class="string">'none'</span>, <span class="string">'marker'</span>, <span class="string">'.'</span>, <span class="string">'color'</span>, <span class="string">'m'</span>);
+0114     <span class="keyword">for</span> i=1:size(allPairs, 2)
+0115         text(allPairs(1,i), allPairs(2,i), int2str(i), <span class="string">'vertical'</span>, <span class="string">'top'</span>, <span class="string">'hori'</span>, <span class="string">'center'</span>);
+0116     <span class="keyword">end</span>
+0117     line(minPair(1), minPair(2), <span class="string">'lineStyle'</span>, <span class="string">'none'</span>, <span class="string">'marker'</span>, <span class="string">'square'</span>, <span class="string">'color'</span>, <span class="string">'r'</span>);
+0118     axis tight; box on; grid on;
+0119     boundary=axis; yMin=boundary(3);
+0120     <span class="keyword">for</span> i=1:size(allPairs, 2)
+0121         line(allPairs(1,i)*[1 1], [yMin, allPairs(2,i)], <span class="string">'color'</span>, <span class="string">'r'</span>);
+0122     <span class="keyword">end</span>
+0123     box on; grid on; axis([minPair(1)-range(x)/40, minPair(1)+range(x)/40, -inf inf]);
+0124 <span class="keyword">end</span>
+0125 
+0126 <span class="comment">% ====== Self demo</span>
+0127 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0128 objFunction=<span class="string">'humps'</span>;
+0129 op.searchRange=[0.1, 0.95];
+0130 op.division=11;
+0131 op.depth=3;
+0132 op.plotOpt=1;
+0133 [minPair, allPairs]=feval(mfilename, objFunction, op);
+0134 fprintf(<span class="string">'minX=%f, minY=%f\n'</span>, minPair(1), minPair(2));
+0135 x=linspace(op.searchRange(1), op.searchRange(2), 1001);
+0136 y=humps(x);
+0137 line(x, y, <span class="string">'color'</span>, <span class="string">'g'</span>); grid on
+0138 set(gca, <span class="string">'ylim'</span>, [min(y), max(y)]);</pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

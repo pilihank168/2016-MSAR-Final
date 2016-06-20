@@ -1,0 +1,13 @@
+252	seem	1
+253	together	3
+254	next	1
+255	white	1	
+256	children	2
+7	is	1
+8	it	1
+9	you	1
+10	that	1
+57	way	1
+58	about	2
+59	many	2
+60	then	1

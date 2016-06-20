@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of sameValueRow</title>
+  <meta name="keywords" content="sameValueRow">
+  <meta name="description" content="sameValueRow: Return the index of same-value row in a matrix">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; sameValueRow.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>sameValueRow
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>sameValueRow: Return the index of same-value row in a matrix</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function rowIndex=sameValueRow(x) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> sameValueRow: Return the index of same-value row in a matrix
+    Usage: rowIndex=sameValueRow(x)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function rowIndex=sameValueRow(x)</a>
+0002 <span class="comment">% sameValueRow: Return the index of same-value row in a matrix</span>
+0003 <span class="comment">%    Usage: rowIndex=sameValueRow(x)</span>
+0004 
+0005 <span class="comment">% Roger Jang, 20060818</span>
+0006 
+0007 <span class="keyword">if</span> nargin&lt;1, <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>; <span class="keyword">return</span>; <span class="keyword">end</span>
+0008 
+0009 rowIndex=sum(abs(diff(x')'), 2)==0;
+0010 
+0011 <span class="comment">% ====== Self demo</span>
+0012 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0013 x=[1 2 3 9 ; 1 5 7 9; 1 8 2 9]';
+0014 rowIndex=feval(mfilename, x);
+0015 fprintf(<span class="string">'x=\n'</span>); disp(x);
+0016 fprintf(<span class="string">'rowIndex=%s(x) produces\n'</span>, mfilename);
+0017 fprintf(<span class="string">'rowIndex=\n'</span>); disp(rowIndex);</pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

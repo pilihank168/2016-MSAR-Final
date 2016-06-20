@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of maxxy</title>
+  <meta name="keywords" content="maxxy">
+  <meta name="description" content="maxxy: Maximum of a matrix">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; maxxy.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>maxxy
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>maxxy: Maximum of a matrix</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [maxValue, maxIndex] = maxXy(mat) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">maxxy: Maximum of a matrix
+    Usage: [maxValue, maxIndex] = maxxy(A)
+        maxValue: the maximum of the matrix A
+        maxIndex: the 2D index of maxValue in A
+
+    For example:
+        [maxValue, maxIndex]=maxXy(magic(5))</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [maxValue, maxIndex] = maxXy(mat)</a>
+0002 <span class="comment">%maxxy: Maximum of a matrix</span>
+0003 <span class="comment">%    Usage: [maxValue, maxIndex] = maxxy(A)</span>
+0004 <span class="comment">%        maxValue: the maximum of the matrix A</span>
+0005 <span class="comment">%        maxIndex: the 2D index of maxValue in A</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">%    For example:</span>
+0008 <span class="comment">%        [maxValue, maxIndex]=maxXy(magic(5))</span>
+0009 
+0010 <span class="comment">%    Roger Jang, 20010219, 20071009</span>
+0011 
+0012 [colMax, colMaxIndex] = max(mat);
+0013 [maxValue, tmp] = max(colMax);
+0014 maxIndex = [colMaxIndex(tmp) tmp];</pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

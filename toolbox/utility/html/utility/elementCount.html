@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of elementCount</title>
+  <meta name="keywords" content="elementCount">
+  <meta name="description" content="elementCount: Count elements in a vector.">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; elementCount.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>elementCount
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>elementCount: Count elements in a vector.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [sortedElement, count] = elementCount(in) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">elementCount: Count elements in a vector.
+    Usage: [sortedElement, count] = elementCount(in)
+
+    For example:
+        in = [5 1 5 5 7 9 9];
+        fprintf('in = %s\n', mat2str(in));
+        fprintf('&quot;[sortedElement, count] = elementCount(in)&quot; produces the following output:\n');
+        [sortedElement, count] = elementCount(in);
+        fprintf('sortedElement = %s\n', mat2str(sortedElement));
+        fprintf('count = %s\n\n', mat2str(count));
+        in = {'ab', 'cd', 'ef', 'ab', 'cd', 'ab'};
+        fprintf('in = %s\n', '{''ab'', ''cd'', ''ef'', ''ab'', ''cd'', ''ab''}');
+        fprintf('&quot;[sortedElement, count] = elementCount(in)&quot; produces the following output:\n');
+        [sortedElement, count] = elementCount(in);
+        fprintf('sortedElement = %s\n', '{''ab'', ''cd'', ''ef''}');
+        fprintf('count = %s\n', '[3 2 1]');
+
+    Type &quot;elementCount&quot; for a self demo.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="elementCount.html" class="code" title="function [sortedElement, count] = elementCount(in)">elementCount</a>	elementCount: Count elements in a vector.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="elementCount.html" class="code" title="function [sortedElement, count] = elementCount(in)">elementCount</a>	elementCount: Count elements in a vector.</li><li><a href="mode.html" class="code" title="function [element, index] = mode(x)">mode</a>	mode: Mode of a vector</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [sortedElement, count] = elementCount(in)</a>
+0002 <span class="comment">%elementCount: Count elements in a vector.</span>
+0003 <span class="comment">%    Usage: [sortedElement, count] = elementCount(in)</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%    For example:</span>
+0006 <span class="comment">%        in = [5 1 5 5 7 9 9];</span>
+0007 <span class="comment">%        fprintf('in = %s\n', mat2str(in));</span>
+0008 <span class="comment">%        fprintf('&quot;[sortedElement, count] = elementCount(in)&quot; produces the following output:\n');</span>
+0009 <span class="comment">%        [sortedElement, count] = elementCount(in);</span>
+0010 <span class="comment">%        fprintf('sortedElement = %s\n', mat2str(sortedElement));</span>
+0011 <span class="comment">%        fprintf('count = %s\n\n', mat2str(count));</span>
+0012 <span class="comment">%        in = {'ab', 'cd', 'ef', 'ab', 'cd', 'ab'};</span>
+0013 <span class="comment">%        fprintf('in = %s\n', '{''ab'', ''cd'', ''ef'', ''ab'', ''cd'', ''ab''}');</span>
+0014 <span class="comment">%        fprintf('&quot;[sortedElement, count] = elementCount(in)&quot; produces the following output:\n');</span>
+0015 <span class="comment">%        [sortedElement, count] = elementCount(in);</span>
+0016 <span class="comment">%        fprintf('sortedElement = %s\n', '{''ab'', ''cd'', ''ef''}');</span>
+0017 <span class="comment">%        fprintf('count = %s\n', '[3 2 1]');</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">%    Type &quot;elementCount&quot; for a self demo.</span>
+0020 
+0021 <span class="comment">%    Roger Jang, 19970327, 20071009</span>
+0022 
+0023 <span class="keyword">if</span> nargin&lt;1, <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>; <span class="keyword">return</span>, <span class="keyword">end</span>
+0024 
+0025 <span class="keyword">if</span> isnumeric(in)    <span class="comment">% Numerical vector</span>
+0026     [m,n] = size(in);
+0027     in1 = sort(in);
+0028     in1(end+1)=in1(end)+1;
+0029     index = find(diff(in1) ~= 0);
+0030     sortedElement = in1(index);
+0031     <span class="keyword">if</span> n==1
+0032         count = diff([0; index]);
+0033     <span class="keyword">else</span>
+0034         count = diff([0, index]);
+0035     <span class="keyword">end</span>
+0036 <span class="keyword">end</span>
+0037 
+0038 <span class="keyword">if</span> iscell(in)        <span class="comment">% Cell string</span>
+0039     [m,n] = size(in);
+0040     in1 = sort(in);
+0041     in1{end+1}=[in1{end}, <span class="string">'z'</span>];
+0042     index = find(strcmp(in1(1:end-1), in1(2:end))==0);
+0043     sortedElement = in1(index);
+0044     <span class="keyword">if</span> n==1
+0045         count = diff([0; index]);
+0046     <span class="keyword">else</span>
+0047         count = diff([0, index]);
+0048     <span class="keyword">end</span>
+0049 <span class="keyword">end</span>
+0050 
+0051 <span class="comment">% ====== Seld demo ======</span>
+0052 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0053 in = [5 1 5 5 7 9 9];
+0054 fprintf(<span class="string">'in = %s\n'</span>, mat2str(in));
+0055 fprintf(<span class="string">'&quot;[sortedElement, count] = elementCount(in)&quot; produces the following output:\n'</span>);
+0056 [sortedElement, count] = <a href="elementCount.html" class="code" title="function [sortedElement, count] = elementCount(in)">elementCount</a>(in);
+0057 fprintf(<span class="string">'sortedElement = %s\n'</span>, mat2str(sortedElement));
+0058 fprintf(<span class="string">'count = %s\n\n'</span>, mat2str(count));
+0059 in = {<span class="string">'ab'</span>, <span class="string">'cd'</span>, <span class="string">'ef'</span>, <span class="string">'ab'</span>, <span class="string">'cd'</span>, <span class="string">'ab'</span>};
+0060 fprintf(<span class="string">'in = %s\n'</span>, <span class="string">'{''ab'', ''cd'', ''ef'', ''ab'', ''cd'', ''ab''}'</span>);
+0061 fprintf(<span class="string">'&quot;[sortedElement, count] = elementCount(in)&quot; produces the following output:\n'</span>);
+0062 [sortedElement, count] = <a href="elementCount.html" class="code" title="function [sortedElement, count] = elementCount(in)">elementCount</a>(in);
+0063 fprintf(<span class="string">'sortedElement = %s\n'</span>, <span class="string">'{''ab'', ''cd'', ''ef''}'</span>);
+0064 fprintf(<span class="string">'count = %s\n'</span>, <span class="string">'[3 2 1]'</span>);</pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

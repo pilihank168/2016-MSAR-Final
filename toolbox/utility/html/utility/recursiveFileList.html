@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of recursiveFileList</title>
+  <meta name="keywords" content="recursiveFileList">
+  <meta name="description" content="RecursiveFileList: List files with a given extension recursively">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; recursiveFileList.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>recursiveFileList
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>RecursiveFileList: List files with a given extension recursively</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function allData=recursiveFileList(directoryList, ext, maxFileNumInEachDir) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> RecursiveFileList: List files with a given extension recursively
+    Usage: allData=recursiveFileList(directoryList, ext, maxFileNumInEachDir)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="fileList2file.html" class="code" title="function fileList2file(dirName, extName, outputFile)">fileList2file</a>	fileList2file: Save list of files in a directory to a file</li><li><a href="renameFileExt.html" class="code" title="function renameFileExt(directory, ext1, ext2)">renameFileExt</a>	renameFileExt: Rename the extension name of files recursively under a specific directory recursively</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function allData=recursiveFileList(directoryList, ext, maxFileNumInEachDir)</a>
+0002 <span class="comment">% RecursiveFileList: List files with a given extension recursively</span>
+0003 <span class="comment">%    Usage: allData=recursiveFileList(directoryList, ext, maxFileNumInEachDir)</span>
+0004 
+0005 <span class="comment">%    Roger Jang, 20030316</span>
+0006 
+0007 <span class="keyword">if</span> nargin&lt;1, error(<span class="string">'Need at least one input argument!'</span>); <span class="keyword">end</span>
+0008 <span class="keyword">if</span> nargin&lt;3, maxFileNumInEachDir=inf; <span class="keyword">end</span>
+0009 <span class="keyword">if</span> isstr(directoryList); directoryList={directoryList}; <span class="keyword">end</span>
+0010 
+0011 allData=[];
+0012 <span class="keyword">for</span> k=1:length(directoryList)
+0013     directory=directoryList{k};
+0014 
+0015     <span class="comment">% Get files in the given directory</span>
+0016     <span class="keyword">if</span> (directory(end)==<span class="string">'/'</span>) | (directory(end)==<span class="string">'\'</span>); directory(end)=[]; <span class="keyword">end</span>
+0017 
+0018     data=dir([directory, <span class="string">'/*.'</span>, ext]);
+0019     data=data(1:min(length(data), maxFileNumInEachDir));
+0020 
+0021     <span class="keyword">for</span> i=1:length(data)
+0022         data(i).path=[directory, <span class="string">'/'</span>, data(i).name];
+0023         [parentPath, junk, junk, junk]=fileparts(data(i).path);
+0024         [junk, data(i).parentDir, junk, junk]=fileparts(parentPath);
+0025     <span class="keyword">end</span>
+0026     
+0027     <span class="comment">% Get files in sub-directories</span>
+0028     subdirs=dir(directory);
+0029     subdirs=subdirs([subdirs.isdir]);    <span class="comment">% Get directories only</span>
+0030     <span class="keyword">for</span> i=1:length(subdirs),
+0031         <span class="keyword">if</span> strcmp(subdirs(i).name, <span class="string">'.'</span>), <span class="keyword">continue</span>; <span class="keyword">end</span>
+0032         <span class="keyword">if</span> strcmp(subdirs(i).name, <span class="string">'..'</span>), <span class="keyword">continue</span>; <span class="keyword">end</span>
+0033         thisPath=[directory, <span class="string">'/'</span>, subdirs(i).name];
+0034         data2=feval(mfilename, thisPath, ext, maxFileNumInEachDir);
+0035         <span class="keyword">if</span> length(data2)==0; data2=[]; <span class="keyword">end</span>
+0036         <span class="keyword">if</span> length(data)==0; data=[]; <span class="keyword">end</span>
+0037         data=[data; data2];
+0038     <span class="keyword">end</span>
+0039     allData=[allData; data];
+0040 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

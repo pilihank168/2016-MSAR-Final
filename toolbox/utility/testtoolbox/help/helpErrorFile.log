@@ -1,0 +1,10 @@
+xTickLabelRotate_help.m
+	identifier: MATLAB:FileIO:InvalidFid
+	message: Invalid file identifier.  Use fopen to generate a valid file identifier.
+	stack:
+		stack(1).file: d:\users\jang\matlab\toolbox\utility\mFile2mFile2html.m
+		stack(1).name: mFile2mFile2html
+		stack(1).line: 35
+		stack(2).file: d:\users\jang\matlab\toolbox\utility\tbDocGen4fcn.m
+		stack(2).name: tbDocGen4fcn
+		stack(2).line: 45

@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of captalize</title>
+  <meta name="keywords" content="captalize">
+  <meta name="description" content="capalize: Captalize each word of a given sentence">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; captalize.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>captalize
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>capalize: Captalize each word of a given sentence</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function out = capalize(in) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">capalize: Captalize each word of a given sentence
+    Usage: out = captalize(in)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function out = capalize(in)</a>
+0002 <span class="comment">%capalize: Captalize each word of a given sentence</span>
+0003 <span class="comment">%    Usage: out = captalize(in)</span>
+0004 
+0005 <span class="comment">%    Multiple spaces are reduced to a single space too.</span>
+0006 
+0007 <span class="comment">%    Roger Jang 20000723</span>
+0008 
+0009 <span class="keyword">if</span> nargin&lt;1, <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>; <span class="keyword">return</span>; <span class="keyword">end</span>
+0010 
+0011 <span class="keyword">if</span> isempty(in),
+0012     out = <span class="string">''</span>;
+0013     <span class="keyword">return</span>;
+0014 <span class="keyword">end</span>
+0015 
+0016 i = 1;
+0017 [token, rem] = strtok(in);
+0018 <span class="keyword">while</span> ~isempty(token)
+0019     extracted{i} = token;
+0020     i = i+1;
+0021     [token, rem] = strtok(rem);
+0022 <span class="keyword">end</span>
+0023 
+0024 <span class="keyword">for</span> i = 1:length(extracted),
+0025     string = extracted{i};
+0026     new_string = [upper(string(1)), string(2:end)];
+0027     extracted{i} = new_string;
+0028 <span class="keyword">end</span>
+0029 
+0030 out = extracted{1};
+0031 <span class="keyword">for</span> i = 2:length(extracted),
+0032     out = [out, <span class="string">' '</span>, extracted{i}];
+0033 <span class="keyword">end</span>
+0034 
+0035 <span class="comment">% ====== Self demo</span>
+0036 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0037 input = <span class="string">'this is A test for Me too'</span>;
+0038 output = feval(mfilename, input);
+0039 fprintf(<span class="string">'input = %s\n'</span>, input);
+0040 fprintf(<span class="string">'output = %s\n'</span>, output);</pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

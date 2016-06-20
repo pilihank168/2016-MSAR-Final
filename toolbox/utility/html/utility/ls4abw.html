@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ls4abw</title>
+  <meta name="keywords" content="ls4abw">
+  <meta name="description" content="Least-squares solution to a*b^T=w">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; ls4abw.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>ls4abw
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Least-squares solution to a*b^T=w</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [a, b]=ls4abw(w, plotOpt) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Least-squares solution to a*b^T=w
+    Usage: [a, b]=ls4abw(w)
+        This function returns the least-squares solution to a*b^T=w, where
+        a: mx1 vector
+        b: nx1 vector
+        w: mxn matrix
+
+    This function uses iterative least-squares to solve the problem.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [a, b]=ls4abw(w, plotOpt)</a>
+0002 <span class="comment">% Least-squares solution to a*b^T=w</span>
+0003 <span class="comment">%    Usage: [a, b]=ls4abw(w)</span>
+0004 <span class="comment">%        This function returns the least-squares solution to a*b^T=w, where</span>
+0005 <span class="comment">%        a: mx1 vector</span>
+0006 <span class="comment">%        b: nx1 vector</span>
+0007 <span class="comment">%        w: mxn matrix</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%    This function uses iterative least-squares to solve the problem.</span>
+0010 
+0011 <span class="comment">%    Roger Jang, 20100229</span>
+0012 
+0013 <span class="keyword">if</span> nargin&lt;1, <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>, <span class="keyword">return</span>; <span class="keyword">end</span>
+0014 <span class="keyword">if</span> nargin&lt;2, plotOpt=0; <span class="keyword">end</span>
+0015 
+0016 maxIter=100;
+0017 tolerance=1e-10;
+0018 [m, n]=size(w);
+0019 a=ones(m,1);
+0020 b=ones(n,1);
+0021 obj=zeros(maxIter, 1);
+0022 
+0023 <span class="keyword">for</span> i=1:maxIter
+0024     aOld=a;
+0025     bOld=b;
+0026     a=w*b/(b'*b);
+0027     b=w'*a/(a'*a);
+0028     <span class="keyword">if</span> norm(a-aOld)&lt;tolerance &amp; norm(b-bOld)&lt;tolerance
+0029         realIterCount=i-1;
+0030         <span class="keyword">break</span>;
+0031     <span class="keyword">end</span>
+0032     error=a*b'-w;
+0033     obj(i)=sum(sum(error.^2));
+0034     <span class="keyword">if</span> plotOpt
+0035         fprintf(<span class="string">'%d/%d: obj=%f, a=%s^T, b=%s^T\n'</span>, i, maxIter, obj(i), mat2str(a, 4), mat2str(b, 4));
+0036     <span class="keyword">end</span>
+0037 <span class="keyword">end</span>
+0038 obj=obj(1:realIterCount);
+0039 <span class="keyword">if</span> plotOpt
+0040     plot(1:realIterCount, obj, <span class="string">'.-'</span>);
+0041 <span class="keyword">end</span>
+0042 
+0043 <span class="comment">% ====== Self demo</span>
+0044 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0045 w=rand(3, 4);
+0046 <span class="comment">%w = rand(120, 1)*rand(1, 100);</span>
+0047 plotOpt=1;
+0048 [a, b]=feval(mfilename, w, plotOpt);</pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

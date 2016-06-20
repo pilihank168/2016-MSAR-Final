@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of tableRead</title>
+  <meta name="keywords" content="tableRead">
+  <meta name="description" content="tableRead: Read a table with tab-separated fields">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; tableRead.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>tableRead
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>tableRead: Read a table with tab-separated fields</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function table=tableRead(fileName, format, fieldNames, delimiter) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> tableRead: Read a table with tab-separated fields
+    Usage: table=tableRead(fileName, format, fieldNames, delimiter)
+        fileName: table file name
+        format: 1 (see table01.txt), 2 (see table02.txt), or 3 (see table03.txt)
+        fieldNames: names of fields (for type-1 format only)
+
+    For example:
+        table=tableRead('table01.txt', 1, {'id', 'word', 'count'})</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="split.html" class="code" title="function tokenList = split(str, delimiter, mode)">split</a>	split: Split a string based on a given delimiter</li><li><a href="tableRead.html" class="code" title="function table=tableRead(fileName, format, fieldNames, delimiter)">tableRead</a>	tableRead: Read a table with tab-separated fields</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="tableRead.html" class="code" title="function table=tableRead(fileName, format, fieldNames, delimiter)">tableRead</a>	tableRead: Read a table with tab-separated fields</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function table=tableRead(fileName, format, fieldNames, delimiter)</a>
+0002 <span class="comment">% tableRead: Read a table with tab-separated fields</span>
+0003 <span class="comment">%    Usage: table=tableRead(fileName, format, fieldNames, delimiter)</span>
+0004 <span class="comment">%        fileName: table file name</span>
+0005 <span class="comment">%        format: 1 (see table01.txt), 2 (see table02.txt), or 3 (see table03.txt)</span>
+0006 <span class="comment">%        fieldNames: names of fields (for type-1 format only)</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%    For example:</span>
+0009 <span class="comment">%        table=tableRead('table01.txt', 1, {'id', 'word', 'count'})</span>
+0010 
+0011 <span class="comment">%    Roger Jang, 20051111, 20071009</span>
+0012 
+0013 <span class="keyword">if</span> nargin&lt;1, <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>; <span class="keyword">return</span>; <span class="keyword">end</span>
+0014 <span class="keyword">if</span> nargin&lt;4, delimiter=9; <span class="keyword">end</span>        <span class="comment">% \t as the default delimiter</span>
+0015 
+0016 splitMode=1;
+0017 <span class="keyword">switch</span> format
+0018     <span class="keyword">case</span> 1
+0019         contents=textread(fileName, <span class="string">'%s'</span>, <span class="string">'delimiter'</span>, <span class="string">'\n'</span>, <span class="string">'whitespace'</span>, <span class="string">''</span>);
+0020         table=[];
+0021         <span class="keyword">for</span> i=1:length(contents)
+0022             line=contents{i};
+0023         <span class="comment">%    fprintf('%d/%d: line=%s\n', i, length(contents), line);</span>
+0024             items=<a href="split.html" class="code" title="function tokenList = split(str, delimiter, mode)">split</a>(line, delimiter, splitMode);        <span class="comment">% tab separated</span>
+0025         <span class="comment">%    keyboard</span>
+0026             itemNum=min(length(items), length(fieldNames));        <span class="comment">% Assign parsed items</span>
+0027             <span class="keyword">for</span> j=1:itemNum
+0028                 table=setfield(table, {i}, fieldNames{j}, items{j}); 
+0029             <span class="keyword">end</span>
+0030         <span class="keyword">end</span>
+0031     <span class="keyword">case</span> 2
+0032         contents=textread(fileName, <span class="string">'%s'</span>, <span class="string">'delimiter'</span>, <span class="string">'\n'</span>, <span class="string">'whitespace'</span>, <span class="string">''</span>);
+0033         fieldNames=<a href="split.html" class="code" title="function tokenList = split(str, delimiter, mode)">split</a>(contents{1}, delimiter, splitMode);
+0034         table=[];
+0035         <span class="keyword">for</span> i=2:length(contents)
+0036             line=contents{i};
+0037             items=<a href="split.html" class="code" title="function tokenList = split(str, delimiter, mode)">split</a>(line, delimiter, splitMode);        <span class="comment">% tab separated</span>
+0038             itemNum=min(length(items), length(fieldNames));        <span class="comment">% Assign parsed items</span>
+0039             <span class="keyword">for</span> j=1:itemNum
+0040                 table=setfield(table, {i-1}, fieldNames{j}, items{j}); 
+0041             <span class="keyword">end</span>
+0042         <span class="keyword">end</span>
+0043     <span class="keyword">case</span> 3
+0044         contents=textread(fileName, <span class="string">'%s'</span>, <span class="string">'delimiter'</span>, <span class="string">'\n'</span>, <span class="string">'whitespace'</span>, <span class="string">''</span>);
+0045         table=[];
+0046         <span class="keyword">for</span> i=1:length(contents)
+0047             line=contents{i};
+0048             items=<a href="split.html" class="code" title="function tokenList = split(str, delimiter, mode)">split</a>(line, delimiter, splitMode);        <span class="comment">% '\t' as the delimiter</span>
+0049             <span class="keyword">for</span> j=1:length(items),
+0050                 temp=<a href="split.html" class="code" title="function tokenList = split(str, delimiter, mode)">split</a>(items{j}, <span class="string">'='</span>);
+0051                 field=temp{1};
+0052                 <span class="keyword">if</span> length(temp)==2
+0053                     value=temp{2};
+0054                 <span class="keyword">else</span>
+0055                     value=<span class="string">''</span>;
+0056                 <span class="keyword">end</span>
+0057                 table=setfield(table, {i}, field, {1:length(value)}, value);
+0058             <span class="keyword">end</span>
+0059         <span class="keyword">end</span>
+0060     <span class="keyword">otherwise</span>
+0061         disp(<span class="string">'Unknown format!'</span>);
+0062 <span class="keyword">end</span>
+0063 
+0064 <span class="comment">% ====== self demo</span>
+0065 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0066 table01 = <a href="tableRead.html" class="code" title="function table=tableRead(fileName, format, fieldNames, delimiter)">tableRead</a>(<span class="string">'table01.txt'</span>, 1, {<span class="string">'id'</span>, <span class="string">'word'</span>, <span class="string">'count'</span>});
+0067 dispStructInHtml(table01);
+0068 fprintf(<span class="string">'Hit any key to view table02...'</span>); pause; fprintf(<span class="string">'\n'</span>);
+0069 table02 = <a href="tableRead.html" class="code" title="function table=tableRead(fileName, format, fieldNames, delimiter)">tableRead</a>(<span class="string">'table02.txt'</span>, 2);
+0070 dispStructInHtml(table02);
+0071 fprintf(<span class="string">'Hit any key to view table03...'</span>); pause; fprintf(<span class="string">'\n'</span>);
+0072 table03 = <a href="tableRead.html" class="code" title="function table=tableRead(fileName, format, fieldNames, delimiter)">tableRead</a>(<span class="string">'table03.txt'</span>, 3);
+0073 dispStructInHtml(table03);</pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

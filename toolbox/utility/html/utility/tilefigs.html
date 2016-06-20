@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of tilefigs</title>
+  <meta name="keywords" content="tilefigs">
+  <meta name="description" content="<cpp> tile figure windows usage: tilefigs ([nrows ncols],border_in pixels)">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; tilefigs.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>tilefigs
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong><cpp> tile figure windows usage: tilefigs ([nrows ncols],border_in pixels)</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function tilefigs(tile,border) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> &lt;cpp&gt; tile figure windows usage: tilefigs ([nrows ncols],border_in pixels)
+ Restriction: maximum of 100 figure windows
+ Without arguments, tilefigs will determine the closest N x N grid</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function tilefigs(tile,border)</a>
+0002 <span class="comment">% &lt;cpp&gt; tile figure windows usage: tilefigs ([nrows ncols],border_in pixels)</span>
+0003 <span class="comment">% Restriction: maximum of 100 figure windows</span>
+0004 <span class="comment">% Without arguments, tilefigs will determine the closest N x N grid</span>
+0005 
+0006 
+0007 <span class="comment">%Charles Plum                    Nichols Research Corp.</span>
+0008 <span class="comment">%&lt;cplum@nichols.com&gt;             70 Westview Street</span>
+0009 <span class="comment">%Tel: (781) 862-9400             Kilnbrook IV</span>
+0010 <span class="comment">%Fax: (781) 862-9485             Lexington, MA 02173</span>
+0011 
+0012 
+0013 maxpos  = get (0,<span class="string">'screensize'</span>); <span class="comment">% determine terminal size in pixels</span>
+0014 maxpos(4) = maxpos(4) - 25;
+0015 hands   = get (0,<span class="string">'Children'</span>);   <span class="comment">% locate fall open figure handles</span>
+0016 hands   = sort(hands);          <span class="comment">% sort figure handles</span>
+0017 numfigs = size(hands,1);        <span class="comment">% number of open figures</span>
+0018 
+0019 
+0020 maxfigs = 100;
+0021 
+0022 
+0023 <span class="keyword">if</span> (numfigs&gt;maxfigs)            <span class="comment">% figure limit check</span>
+0024         disp([<span class="string">' More than '</span> num2str(maxfigs) <span class="string">' figures ... get serious pal'</span>])
+0025         <span class="keyword">return</span>
+0026 <span class="keyword">end</span>
+0027 
+0028 
+0029 <span class="keyword">if</span> nargin == 0
+0030   maxfactor = sqrt(maxfigs);       <span class="comment">% max number of figures per row or column</span>
+0031   sq = [2:maxfactor].^2;           <span class="comment">% vector of integer squares</span>
+0032   sq = sq(find(sq&gt;=numfigs));      <span class="comment">% determine square grid size</span>
+0033   gridsize = sq(1);                <span class="comment">% best grid size</span>
+0034   nrows = sqrt(gridsize);          <span class="comment">% figure size screen scale factor</span>
+0035   ncols = nrows;                   <span class="comment">% figure size screen scale factor</span>
+0036 <span class="keyword">elseif</span> nargin &gt; 0 
+0037   nrows = tile(1);
+0038   ncols = tile(2);
+0039   <span class="keyword">if</span> numfigs &gt; nrows*ncols
+0040     disp ([<span class="string">' requested tile size too small for '</span> <span class="keyword">...</span>
+0041         num2str(numfigs) <span class="string">' open figures '</span>])
+0042         <span class="keyword">return</span>
+0043   <span class="keyword">end</span>
+0044 <span class="keyword">end</span>
+0045 <span class="keyword">if</span> nargin &lt; 2
+0046   border = 0;
+0047 <span class="keyword">else</span>
+0048   maxpos(3) = maxpos(3) - 2*border;
+0049   maxpos(4) = maxpos(4) - 2*border;
+0050 <span class="keyword">end</span>
+0051 xlen = fix(maxpos(3)/ncols) - 30; <span class="comment">% new tiled figure width</span>
+0052 ylen = fix(maxpos(4)/nrows) - 45; <span class="comment">% new tiled figure height</span>
+0053 
+0054 
+0055 <span class="comment">% tile figures by postiion</span>
+0056 <span class="comment">% Location (1,1) is at bottom left corner</span>
+0057 pnum=0;
+0058 <span class="keyword">for</span> iy = 1:nrows
+0059   ypos = maxpos(4) - fix((iy)*maxpos(4)/nrows) + border +25; <span class="comment">% figure location (row)</span>
+0060   <span class="keyword">for</span> ix = 1:ncols
+0061         xpos = fix((ix-1)*maxpos(3)/ncols + 1) + border+7;     <span class="comment">% figure location (column)</span>
+0062         pnum = pnum+1;
+0063     <span class="keyword">if</span> (pnum&gt;numfigs)
+0064                 <span class="keyword">break</span>
+0065         <span class="keyword">else</span>
+0066           figure(hands(pnum))
+0067       set(hands(pnum),<span class="string">'Position'</span>,[ xpos ypos xlen ylen ]); <span class="comment">% move figure</span>
+0068         <span class="keyword">end</span>
+0069   <span class="keyword">end</span>
+0070 <span class="keyword">end</span>
+0071 <span class="keyword">return</span>
+0072 
+0073 
+0074 <span class="comment">% -------------------------------------------------------------------------</span></pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

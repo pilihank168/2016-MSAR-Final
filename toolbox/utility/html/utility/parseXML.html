@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of parseXML</title>
+  <meta name="keywords" content="parseXML">
+  <meta name="description" content="PARSEXML Convert XML file to a MATLAB structure.">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; parseXML.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>parseXML
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>PARSEXML Convert XML file to a MATLAB structure.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function theStruct = parseXML(filename) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> PARSEXML Convert XML file to a MATLAB structure.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function children = parseChildNodes(theNode)</a></li><li><a href="#_sub2" class="code">function nodeStruct = makeStructFromNode(theNode)</a></li><li><a href="#_sub3" class="code">function attributes = parseAttributes(theNode)</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function theStruct = parseXML(filename)</a>
+0002 <span class="comment">% PARSEXML Convert XML file to a MATLAB structure.</span>
+0003 <span class="keyword">try</span>
+0004    tree = xmlread(filename);
+0005 <span class="keyword">catch</span>
+0006    error(<span class="string">'Failed to read XML file %s.'</span>,filename);
+0007 <span class="keyword">end</span>
+0008 
+0009 <span class="comment">% Recurse over child nodes. This could run into problems</span>
+0010 <span class="comment">% with very deeply nested trees.</span>
+0011 <span class="keyword">try</span>
+0012    theStruct = <a href="#_sub1" class="code" title="subfunction children = parseChildNodes(theNode)">parseChildNodes</a>(tree);
+0013 <span class="keyword">catch</span>
+0014    error(<span class="string">'Unable to parse XML file %s.'</span>);
+0015 <span class="keyword">end</span>
+0016 
+0017 
+0018 <span class="comment">% ----- Subfunction PARSECHILDNODES -----</span>
+0019 <a name="_sub1" href="#_subfunctions" class="code">function children = parseChildNodes(theNode)</a>
+0020 <span class="comment">% Recurse over node children.</span>
+0021 children = [];
+0022 <span class="keyword">if</span> theNode.hasChildNodes
+0023    childNodes = theNode.getChildNodes;
+0024    numChildNodes = childNodes.getLength;
+0025    allocCell = cell(1, numChildNodes);
+0026 
+0027    children = struct(             <span class="keyword">...</span>
+0028       <span class="string">'Name'</span>, allocCell, <span class="string">'Attributes'</span>, allocCell,    <span class="keyword">...</span>
+0029       <span class="string">'Data'</span>, allocCell, <span class="string">'Children'</span>, allocCell);
+0030 
+0031     <span class="keyword">for</span> count = 1:numChildNodes
+0032         theChild = childNodes.item(count-1);
+0033         children(count) = <a href="#_sub2" class="code" title="subfunction nodeStruct = makeStructFromNode(theNode)">makeStructFromNode</a>(theChild);
+0034     <span class="keyword">end</span>
+0035 <span class="keyword">end</span>
+0036 
+0037 <span class="comment">% ----- Subfunction MAKESTRUCTFROMNODE -----</span>
+0038 <a name="_sub2" href="#_subfunctions" class="code">function nodeStruct = makeStructFromNode(theNode)</a>
+0039 <span class="comment">% Create structure of node info.</span>
+0040 
+0041 nodeStruct = struct(                        <span class="keyword">...</span>
+0042    <span class="string">'Name'</span>, char(theNode.getNodeName),       <span class="keyword">...</span>
+0043    <span class="string">'Attributes'</span>, <a href="#_sub3" class="code" title="subfunction attributes = parseAttributes(theNode)">parseAttributes</a>(theNode),  <span class="keyword">...</span>
+0044    <span class="string">'Data'</span>, <span class="string">''</span>,                              <span class="keyword">...</span>
+0045    <span class="string">'Children'</span>, <a href="#_sub1" class="code" title="subfunction children = parseChildNodes(theNode)">parseChildNodes</a>(theNode));
+0046 
+0047 <span class="keyword">if</span> any(strcmp(methods(theNode), <span class="string">'getData'</span>))
+0048    nodeStruct.Data = char(theNode.getData); 
+0049 <span class="keyword">else</span>
+0050    nodeStruct.Data = <span class="string">''</span>;
+0051 <span class="keyword">end</span>
+0052 
+0053 <span class="comment">% ----- Subfunction PARSEATTRIBUTES -----</span>
+0054 <a name="_sub3" href="#_subfunctions" class="code">function attributes = parseAttributes(theNode)</a>
+0055 <span class="comment">% Create attributes structure.</span>
+0056 
+0057 attributes = [];
+0058 <span class="keyword">if</span> theNode.hasAttributes
+0059    theAttributes = theNode.getAttributes;
+0060    numAttributes = theAttributes.getLength;
+0061    allocCell = cell(1, numAttributes);
+0062    attributes = struct(<span class="string">'Name'</span>, allocCell, <span class="string">'Value'</span>, allocCell);
+0063 
+0064    <span class="keyword">for</span> count = 1:numAttributes
+0065       attrib = theAttributes.item(count-1);
+0066       attributes(count).Name = char(attrib.getName);
+0067       attributes(count).Value = char(attrib.getValue);
+0068    <span class="keyword">end</span>
+0069 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

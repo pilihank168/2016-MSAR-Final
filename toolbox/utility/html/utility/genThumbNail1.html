@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of genThumbNail1</title>
+  <meta name="keywords" content="genThumbNail1">
+  <meta name="description" content="genThumbNail1: Create thumbnail for .jpg files from a given singel directory（適用於1層目錄）">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; genThumbNail1.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>genThumbNail1
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>genThumbNail1: Create thumbnail for .jpg files from a given singel directory（適用於1層目錄）</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function genThumbNail1(photoDir) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> genThumbNail1: Create thumbnail for .jpg files from a given singel directory（適用於1層目錄）
+    例如：genThumbNail1('C:\Documents and Settings\user\桌面\gourami\photo\20040814-阿公的頭七')</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="split.html" class="code" title="function tokenList = split(str, delimiter, mode)">split</a>	split: Split a string based on a given delimiter</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="genThumbnail2.html" class="code" title="function genThumbNail2(yearDir)">genThumbnail2</a>	genThumbNail2: 適用於2層目錄</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function tokenList = split(str, delimiter)</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function genThumbNail1(photoDir)</a>
+0002 <span class="comment">% genThumbNail1: Create thumbnail for .jpg files from a given singel directory（適用於1層目錄）</span>
+0003 <span class="comment">%    例如：genThumbNail1('C:\Documents and Settings\user\桌面\gourami\photo\20040814-阿公的頭七')</span>
+0004 
+0005 <span class="comment">%    Roger Jang, 20031111</span>
+0006 
+0007 <span class="keyword">if</span> nargin&lt;1; photoDir=<span class="string">'C:\Documents and Settings\user\桌面\gourami\photo\20040814-阿公的頭七'</span>; <span class="keyword">end</span>
+0008 <span class="keyword">if</span> photoDir(end)==<span class="string">'\'</span> | photoDir(end)==<span class="string">'/'</span>, photoDir(end)=[]; <span class="keyword">end</span>
+0009 
+0010 jpegRsPath=<span class="string">'D:\users\jang\matlab\toolbox\utility\jpegRS.exe'</span>;
+0011 
+0012 [junk, parentDir, junk, junk]=fileparts(photoDir);
+0013 
+0014 <span class="comment">% ====== Create index.htm for redirecting</span>
+0015 fid=fopen([photoDir, <span class="string">'/index.htm'</span>], <span class="string">'w'</span>);
+0016 fprintf(fid, <span class="string">'&lt;script&gt;document.location=&quot;tn/index.htm&quot;;&lt;/script&gt;'</span>);
+0017 fclose(fid);
+0018 
+0019 <span class="comment">% ====== Create tn directory</span>
+0020 [success, message, messageId]=mkdir(photoDir, <span class="string">'tn'</span>);
+0021 <span class="keyword">if</span> success~=1
+0022     error(<span class="string">'Error in creating tn directory!'</span>);
+0023 <span class="keyword">end</span>
+0024 
+0025 <span class="comment">% ====== Create thumbnail photos</span>
+0026 jpgFiles=dir([photoDir, <span class="string">'/*.jpg'</span>]);
+0027 photoNum=length(jpgFiles);
+0028 <span class="keyword">for</span> i=1:photoNum
+0029     jpgFile=[<span class="string">'&quot;'</span>, photoDir, <span class="string">'/'</span>, jpgFiles(i).name, <span class="string">'&quot;'</span>];
+0030     fprintf(<span class="string">'%g/%g ==&gt; %s\n'</span>, i, photoNum, jpgFile);
+0031     cmd=[jpegRsPath, <span class="string">' '</span>, jpgFile];
+0032     [s, w]=dos(cmd);
+0033     items=<a href="split.html" class="code" title="function tokenList = split(str, delimiter, mode)">split</a>(deblank(w), <span class="string">' '</span>);
+0034     width=eval(items{1});
+0035     height=eval(items{2});
+0036     newHeight=100;
+0037     newWidth=round(newHeight*width/height);
+0038     newJpgFile=[<span class="string">'&quot;'</span>, photoDir, <span class="string">'/tn/tn_'</span>, jpgFiles(i).name, <span class="string">'&quot;'</span>];
+0039     cmd=[jpegRsPath, <span class="string">' '</span>, jpgFile, <span class="string">' '</span>, int2str(newWidth), <span class="string">' '</span>, int2str(newHeight), <span class="string">' '</span>, newJpgFile];
+0040     dos(cmd);
+0041 <span class="keyword">end</span>
+0042 
+0043 mpg=dir([photoDir, <span class="string">'/*.mpg'</span>]);
+0044 asf=dir([photoDir, <span class="string">'/*.asf'</span>]);
+0045 wmv=dir([photoDir, <span class="string">'/*.wmv'</span>]);
+0046 mpgFiles=[mpg; asf; wmv];
+0047 movieNum=length(mpgFiles);
+0048 
+0049 <span class="comment">% ====== Create index.htm under tn directory</span>
+0050 fid=fopen([photoDir, <span class="string">'/tn/index.htm'</span>], <span class="string">'w'</span>);
+0051 
+0052 fprintf(fid, <span class="string">'&lt;HTML&gt;\n'</span>);
+0053 fprintf(fid, <span class="string">'&lt;HEAD&gt;\n'</span>);
+0054 fprintf(fid, [<span class="string">'\t&lt;TITLE&gt;'</span>, parentDir, <span class="string">'&lt;/TITLE&gt;\n'</span>]);
+0055 fprintf(fid, <span class="string">'\t&lt;meta HTTP-EQUIV=&quot;Content-Type&quot; CONTENT=&quot;text/html; charset=big5&quot;&gt;\n'</span>);
+0056 fprintf(fid, <span class="string">'&lt;/HEAD&gt;\n'</span>);
+0057 fprintf(fid, <span class="string">'&lt;body&gt;\n'</span>);
+0058 fprintf(fid, [<span class="string">'&lt;h2 align=center&gt;'</span>, parentDir, <span class="string">'&lt;/h2&gt;&lt;hr&gt;\n'</span>]);
+0059 
+0060 <span class="keyword">if</span> photoNum&gt;0
+0061     fprintf(fid, [<span class="string">'&lt;h3 align=center&gt;圖片檔案（*.jpg）：'</span>, int2str(length(jpgFiles)), <span class="string">'&lt;/h3&gt;\n'</span>]);
+0062     fprintf(fid, <span class="string">'&lt;TABLE align=center&gt;\n'</span>);
+0063     colNum=7;
+0064     rowNum=ceil(photoNum/colNum);
+0065     k=1;
+0066     <span class="keyword">for</span> i=1:rowNum
+0067         fprintf(fid, <span class="string">'&lt;TR&gt;\n'</span>);
+0068         <span class="keyword">for</span> j=1:colNum
+0069             <span class="keyword">if</span> k&lt;=photoNum
+0070                 [a, b, c, d]=fileparts(jpgFiles(k).name);
+0071                 fprintf(fid, <span class="string">'&lt;TD ALIGN=CENTER VALIGN=BOTTOM&gt;&lt;FONT face=&quot;Verdana, Arial, Helvetica, Sans-Serif&quot; size=&quot;-2&quot;&gt;'</span>);
+0072                 fprintf(fid, [<span class="string">'&lt;A target=_blank href=&quot;../'</span>, jpgFiles(k).name, <span class="string">'&quot;&gt;&lt;IMG SRC=&quot;tn_'</span>, jpgFiles(k).name, <span class="string">'&quot;&gt;&lt;/A&gt;&lt;br&gt;'</span>, b, <span class="string">'&lt;/FONT&gt;&lt;/TD&gt;\n'</span>]);
+0073             <span class="keyword">end</span>
+0074             k=k+1;
+0075         <span class="keyword">end</span>
+0076         fprintf(fid, <span class="string">'&lt;/TR&gt;\n'</span>);
+0077     <span class="keyword">end</span>
+0078     fprintf(fid, <span class="string">'&lt;/TABLE&gt;'</span>);
+0079 <span class="keyword">end</span>
+0080 
+0081 <span class="keyword">if</span> movieNum&gt;0
+0082     fprintf(fid, [<span class="string">'&lt;h3 align=center&gt;影像檔案（*.mpg）：'</span>, int2str(length(mpgFiles)), <span class="string">'&lt;/h3&gt;\n'</span>]);
+0083     fprintf(fid, <span class="string">'&lt;TABLE align=center border=1&gt;\n'</span>);
+0084     colNum=7;
+0085     rowNum=ceil(movieNum/colNum);
+0086     k=1;
+0087     <span class="keyword">for</span> i=1:rowNum
+0088         fprintf(fid, <span class="string">'&lt;TR&gt;\n'</span>);
+0089         <span class="keyword">for</span> j=1:colNum
+0090             <span class="keyword">if</span> k&lt;=movieNum
+0091                 [a, b, c, d]=fileparts(mpgFiles(k).name);
+0092                 fprintf(fid, <span class="string">'&lt;TD ALIGN=CENTER VALIGN=BOTTOM&gt;&lt;FONT face=&quot;Verdana, Arial, Helvetica, Sans-Serif&quot;&gt;'</span>);
+0093                 fprintf(fid, [<span class="string">'&lt;A href=&quot;../'</span>, mpgFiles(k).name, <span class="string">'&quot;&gt;'</span>, mpgFiles(k).name, <span class="string">'&lt;/A&gt;&lt;/FONT&gt;&lt;/TD&gt;\n'</span>]);
+0094             <span class="keyword">end</span>
+0095             k=k+1;
+0096         <span class="keyword">end</span>
+0097         fprintf(fid, <span class="string">'&lt;/TR&gt;\n'</span>);
+0098     <span class="keyword">end</span>
+0099     fprintf(fid, <span class="string">'&lt;/TABLE&gt;'</span>);
+0100 <span class="keyword">end</span>
+0101 
+0102 fprintf(fid, <span class="string">'&lt;/BODY&gt;&lt;/HTML&gt;\n'</span>);
+0103 fclose(fid);
+0104 
+0105 
+0106 
+0107 
+0108 
+0109 <a name="_sub1" href="#_subfunctions" class="code">function tokenList = split(str, delimiter)</a>
+0110 <span class="comment">% SPLIT Split a string based on a given delimiter</span>
+0111 <span class="comment">%    Usage:</span>
+0112 <span class="comment">%    tokenList = split(str, delimiter)</span>
+0113 
+0114 <span class="comment">%    Roger Jang, 20010324</span>
+0115 
+0116 tokenList = {};
+0117 remain = str;
+0118 i = 1;
+0119 <span class="keyword">while</span> ~isempty(remain),
+0120     [token, remain] = strtok(remain, delimiter);
+0121     tokenList{i} = token;
+0122     i = i+1;
+0123 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

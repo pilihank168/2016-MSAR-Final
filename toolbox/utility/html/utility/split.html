@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of split</title>
+  <meta name="keywords" content="split">
+  <meta name="description" content="split: Split a string based on a given delimiter">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; split.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>split
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>split: Split a string based on a given delimiter</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function tokenList = split(str, delimiter, mode) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> split: Split a string based on a given delimiter
+    Usage: tokenList = split(str, delimiter, mode)
+
+    For example:
+        str='--This-is---a-test--';
+        fprintf('str = &quot;%s&quot;\n', str);
+        tokenList=split(str, '-', 0);
+        fprintf('After running &quot;tokenList = split(str, ''-'', 0)&quot;:\n');
+        strVecPrint(tokenList, 'tokenList');
+        tokenList=split(str, '-', 1);
+        fprintf('After running &quot;tokenList = split(str, ''-'', 1)&quot;:\n');
+        strVecPrint(tokenList, 'tokenList');</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="mode.html" class="code" title="function [element, index] = mode(x)">mode</a>	mode: Mode of a vector</li><li><a href="strVecPrint.html" class="code" title="function strVecPrint(strVec, name)">strVecPrint</a>	strVecPrint: Print a string vector</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="findInc.html" class="code" title="function out = findInc(fileName)">findInc</a>	findInc: Find included files in a given C file</li><li><a href="genThumbNail1.html" class="code" title="function genThumbNail1(photoDir)">genThumbNail1</a>	genThumbNail1: Create thumbnail for .jpg files from a given singel directory（適用於1層目錄）</li><li><a href="jpegResize.html" class="code" title="function [width, height]=jpegResize(jpgFile, ratio, newJpgFile)">jpegResize</a>	jpegResize: Resize a jpeg photo</li><li><a href="mkdirs.html" class="code" title="function mkdirs(dirPath)">mkdirs</a>	mkdirs: Make several directories along a given path of all directories</li><li><a href="tableRead.html" class="code" title="function table=tableRead(fileName, format, fieldNames, delimiter)">tableRead</a>	tableRead: Read a table with tab-separated fields</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function tokenList = split(str, delimiter, mode)</a>
+0002 <span class="comment">% split: Split a string based on a given delimiter</span>
+0003 <span class="comment">%    Usage: tokenList = split(str, delimiter, mode)</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%    For example:</span>
+0006 <span class="comment">%        str='--This-is---a-test--';</span>
+0007 <span class="comment">%        fprintf('str = &quot;%s&quot;\n', str);</span>
+0008 <span class="comment">%        tokenList=split(str, '-', 0);</span>
+0009 <span class="comment">%        fprintf('After running &quot;tokenList = split(str, ''-'', 0)&quot;:\n');</span>
+0010 <span class="comment">%        strVecPrint(tokenList, 'tokenList');</span>
+0011 <span class="comment">%        tokenList=split(str, '-', 1);</span>
+0012 <span class="comment">%        fprintf('After running &quot;tokenList = split(str, ''-'', 1)&quot;:\n');</span>
+0013 <span class="comment">%        strVecPrint(tokenList, 'tokenList');</span>
+0014 
+0015 <span class="comment">%    See also JOIN.</span>
+0016 
+0017 <span class="comment">%    Roger Jang, 20010324, 20071009</span>
+0018 
+0019 <span class="keyword">if</span> nargin&lt;1; <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>; <span class="keyword">return</span>; <span class="keyword">end</span>
+0020 <span class="keyword">if</span> nargin&lt;2; delimiter=<span class="string">' '</span>; <span class="keyword">end</span>
+0021 <span class="keyword">if</span> nargin&lt;3; <a href="mode.html" class="code" title="function [element, index] = mode(x)">mode</a>=0; <span class="keyword">end</span>
+0022 
+0023 <span class="keyword">if</span> length(str)==0
+0024     tokenList={};
+0025     <span class="keyword">return</span>;
+0026 <span class="keyword">end</span>
+0027 
+0028 <span class="keyword">switch</span>(<a href="mode.html" class="code" title="function [element, index] = mode(x)">mode</a>)
+0029     <span class="keyword">case</span> 0
+0030         tokenList = {};
+0031         remain = str;
+0032         i = 1;
+0033         <span class="keyword">while</span> ~isempty(remain),
+0034             [token, remain] = strtok(remain, delimiter);
+0035             tokenList{i} = token;
+0036             i = i+1;
+0037         <span class="keyword">end</span>
+0038         <span class="comment">% Get rid of the possible empty last element</span>
+0039         <span class="keyword">if</span> isempty(tokenList{end})
+0040             tokenList(end)=[];
+0041         <span class="keyword">end</span>
+0042     <span class="keyword">case</span> 1
+0043         tokenList={};
+0044         beginPos=1;
+0045         prevDef=0;
+0046         <span class="keyword">for</span> i=1:length(str)
+0047             <span class="keyword">if</span> str(i)==delimiter
+0048                 tokenList{end+1}=str(beginPos:i-1);
+0049                 prefDef=0;
+0050                 beginPos=i+1;
+0051             <span class="keyword">end</span>
+0052             <span class="keyword">if</span> str(i)~=delimiter &amp; ~prevDef
+0053                 beginPos=i;
+0054                 prevDef=1;
+0055             <span class="keyword">end</span> 
+0056         <span class="keyword">end</span>
+0057 
+0058         <span class="keyword">if</span> str(end)==delimiter
+0059             tokenList{end+1}=<span class="string">''</span>;
+0060         <span class="keyword">else</span>
+0061             tokenList{end+1}=str(beginPos:end);
+0062         <span class="keyword">end</span>
+0063     <span class="keyword">otherwise</span>
+0064         error(<span class="string">'Unknown mode!'</span>);
+0065 <span class="keyword">end</span>
+0066 
+0067 <span class="comment">% ====== Self demo</span>
+0068 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0069 str=<span class="string">'--This-is---a-test--'</span>;
+0070 fprintf(<span class="string">'str = &quot;%s&quot;\n'</span>, str);
+0071 tokenList=feval(mfilename, str, <span class="string">'-'</span>, 0);
+0072 fprintf(<span class="string">'After running &quot;tokenList = split(str, ''-'', 0)&quot;:\n'</span>);
+0073 <a href="strVecPrint.html" class="code" title="function strVecPrint(strVec, name)">strVecPrint</a>(tokenList, <span class="string">'tokenList'</span>);
+0074 tokenList=feval(mfilename, str, <span class="string">'-'</span>, 1);
+0075 fprintf(<span class="string">'After running &quot;tokenList = split(str, ''-'', 1)&quot;:\n'</span>);
+0076 <a href="strVecPrint.html" class="code" title="function strVecPrint(strVec, name)">strVecPrint</a>(tokenList, <span class="string">'tokenList'</span>);</pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

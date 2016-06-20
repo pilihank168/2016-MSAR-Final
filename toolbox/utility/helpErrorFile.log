@@ -1,0 +1,19 @@
+mFile2mFile2html.m
+	identifier: MATLAB:nonStrucReference
+	message: Attempt to reference field of non-structure array.
+	stack:
+		stack(1).file: C:\MATLAB\R2014a\toolbox\matlab\codetools\private\evalmxdom.m
+		stack(1).name: createThumbnail
+		stack(1).line: 254
+		stack(2).file: C:\MATLAB\R2014a\toolbox\matlab\codetools\private\evalmxdom.m
+		stack(2).name: evalmxdom
+		stack(2).line: 22
+		stack(3).file: C:\MATLAB\R2014a\toolbox\matlab\codetools\publish.m
+		stack(3).name: publish
+		stack(3).line: 164
+		stack(4).file: D:\users\jang\matlab\toolbox\utility\mFile2mFile2html.m
+		stack(4).name: mFile2mFile2html
+		stack(4).line: 112
+		stack(5).file: D:\users\jang\matlab\toolbox\utility\tbDocGen4fcn.m
+		stack(5).name: tbDocGen4fcn
+		stack(5).line: 44

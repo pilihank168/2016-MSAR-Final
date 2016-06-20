@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of diffPlot</title>
+  <meta name="keywords" content="diffPlot">
+  <meta name="description" content="diffPlot: View the difference of two vectors">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; diffPlot.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>diffPlot
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>diffPlot: View the difference of two vectors</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function diffPlot(vec1, vec2) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">diffPlot: View the difference of two vectors
+    Usage: diffPlot(vec1, vec2)
+
+    For example:
+        x = randperm(10);
+        y = x.^(1/1000000000).^1000000000;
+        diffPlot(x, y);</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="diffPlot.html" class="code" title="function diffPlot(vec1, vec2)">diffPlot</a>	diffPlot: View the difference of two vectors</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="diffPlot.html" class="code" title="function diffPlot(vec1, vec2)">diffPlot</a>	diffPlot: View the difference of two vectors</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function diffPlot(vec1, vec2)</a>
+0002 <span class="comment">%diffPlot: View the difference of two vectors</span>
+0003 <span class="comment">%    Usage: diffPlot(vec1, vec2)</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%    For example:</span>
+0006 <span class="comment">%        x = randperm(10);</span>
+0007 <span class="comment">%        y = x.^(1/1000000000).^1000000000;</span>
+0008 <span class="comment">%        diffPlot(x, y);</span>
+0009 
+0010 <span class="comment">%    Roger Jang, 20070706</span>
+0011 
+0012 <span class="keyword">if</span> nargin&lt;1, <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>; <span class="keyword">return</span> ;<span class="keyword">end</span>
+0013 
+0014 vec1=vec1(:);
+0015 vec2=vec2(:);
+0016 name1=inputname(1);
+0017 name2=inputname(2);
+0018 
+0019 subplot(2,1,1);
+0020 plot(1:length(vec1), vec1, <span class="string">'-'</span>, 1:length(vec2), vec2, <span class="string">'-'</span>);
+0021 grid on
+0022 title(sprintf(<span class="string">'Curves of %s and %s\n'</span>, name1, name2));
+0023 legend(name1, name2);
+0024 subplot(2,1,2);
+0025 minLen=min(length(vec1), length(vec2));
+0026 plot(1:minLen, abs(vec1(1:minLen)-vec2(1:minLen)), <span class="string">'-'</span>);
+0027 maxAbsDiff=max(abs(vec1(1:minLen)-vec2(1:minLen)));
+0028 grid on
+0029 title(sprintf(<span class="string">'Abs. diff. of %s and %s, with maxAbsDiff=%g\n'</span>, name1, name2, maxAbsDiff));
+0030 
+0031 <span class="comment">% ====== Self demo</span>
+0032 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0033 x = randperm(10);
+0034 y = x.^(1/1000000000).^1000000000;
+0035 <a href="diffPlot.html" class="code" title="function diffPlot(vec1, vec2)">diffPlot</a>(x, y);</pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

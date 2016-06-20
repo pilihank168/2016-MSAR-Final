@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of findInc</title>
+  <meta name="keywords" content="findInc">
+  <meta name="description" content="findInc: Find included files in a given C file">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; findInc.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>findInc
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>findInc: Find included files in a given C file</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function out = findInc(fileName) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">findInc: Find included files in a given C file
+    Usage: out = findInc(fileName)
+        fileName: file to be search
+        out: Included files in a cell string</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="split.html" class="code" title="function tokenList = split(str, delimiter, mode)">split</a>	split: Split a string based on a given delimiter</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function tokenList = split(str, delimiter)</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function out = findInc(fileName)</a>
+0002 <span class="comment">%findInc: Find included files in a given C file</span>
+0003 <span class="comment">%    Usage: out = findInc(fileName)</span>
+0004 <span class="comment">%        fileName: file to be search</span>
+0005 <span class="comment">%        out: Included files in a cell string</span>
+0006 
+0007 <span class="comment">%    Roger Jang, 20020101</span>
+0008 
+0009 fid = fopen(fileName);
+0010 <span class="keyword">if</span> fid&lt;0,
+0011     error(sprintf(<span class="string">'Cannot open &quot;%s&quot;!'</span>, fileName));
+0012 <span class="keyword">end</span>
+0013 
+0014 lineNum = 1;
+0015 <span class="keyword">while</span> 1
+0016     line = fgetl(fid);
+0017     <span class="keyword">if</span> ~isstr(line), <span class="keyword">break</span>, <span class="keyword">end</span>
+0018     contents{lineNum} = xlate(line);
+0019     lineNum = lineNum+1;
+0020 <span class="keyword">end</span>
+0021 fclose(fid);
+0022 
+0023 out = {};
+0024 <span class="keyword">for</span> i=1:length(contents),
+0025     line = contents{i};
+0026     <span class="keyword">if</span> ~isempty(line),
+0027         pos = findstr(line, <span class="string">'#include &quot;'</span>);
+0028         <span class="keyword">if</span> ~isempty(pos) &amp; pos==1,
+0029             temp = <a href="split.html" class="code" title="function tokenList = split(str, delimiter, mode)">split</a>(line, <span class="string">'&quot;'</span>);
+0030             out = {out{:}, temp{2}};
+0031         <span class="keyword">end</span>
+0032     <span class="keyword">end</span>
+0033 <span class="keyword">end</span>
+0034 
+0035 
+0036 
+0037 
+0038 
+0039 
+0040 
+0041 
+0042 
+0043 
+0044 <span class="comment">% Function for split</span>
+0045 <a name="_sub1" href="#_subfunctions" class="code">function tokenList = split(str, delimiter)</a>
+0046 <span class="comment">% SPLIT Split a string based on a given delimiter</span>
+0047 <span class="comment">%    Usage:</span>
+0048 <span class="comment">%    tokenList = split(str, delimiter)</span>
+0049 
+0050 <span class="comment">%    Roger Jang, 20010324</span>
+0051 
+0052 tokenList = {};
+0053 remain = str;
+0054 i = 1;
+0055 <span class="keyword">while</span> ~isempty(remain),
+0056     [token, remain] = strtok(remain, delimiter);
+0057     tokenList{i} = token;
+0058     i = i+1;
+0059 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of dbQuery</title>
+  <meta name="keywords" content="dbQuery">
+  <meta name="description" content="dbQuery: Database query via a given SQL">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; dbQuery.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>dbQuery
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>dbQuery: Database query via a given SQL</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function table=dbQuery(dsn, sql) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> dbQuery: Database query via a given SQL
+    Usage: table=dbQuery(dsn, sql)
+
+    For example:
+        dsn = 'speechDb';
+        sql = 'select * from paTable order by yinMa';
+        table = dbQuery(dsn, sql);</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function table=dbQuery(dsn, sql)</a>
+0002 <span class="comment">% dbQuery: Database query via a given SQL</span>
+0003 <span class="comment">%    Usage: table=dbQuery(dsn, sql)</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%    For example:</span>
+0006 <span class="comment">%        dsn = 'speechDb';</span>
+0007 <span class="comment">%        sql = 'select * from paTable order by yinMa';</span>
+0008 <span class="comment">%        table = dbQuery(dsn, sql);</span>
+0009 
+0010 <span class="comment">%    Roger Jang, 20010203, 20080120</span>
+0011 
+0012 logintimeout(5);
+0013 conn = database(dsn, <span class="string">''</span>, <span class="string">''</span>);
+0014 <span class="comment">%ping(conn)</span>
+0015 cursorA = exec(conn, sql);
+0016 cursorA = fetch(cursorA);
+0017 table = cursorA.data;
+0018 temp = columnnames(cursorA);
+0019 eval([<span class="string">'fieldNames = {'</span>, temp, <span class="string">'}'';'</span>]); 
+0020 table = cell2struct(table, fieldNames, 2);
+0021 close(conn);</pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

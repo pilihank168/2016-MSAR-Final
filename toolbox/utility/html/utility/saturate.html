@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of saturate</title>
+  <meta name="keywords" content="saturate">
+  <meta name="description" content="saturate: Saturate between two level (bound limiter)">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; saturate.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>saturate
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>saturate: Saturate between two level (bound limiter)</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function output=saturate(x, level) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">saturate: Saturate between two level (bound limiter)
+    Usage:output=saturate(x, level)
+        output: output value
+        x: input value
+        level: level(1)==&gt;lower bound, level(2)==&gt;upper bound
+
+    For example:
+        x=linspace(0, 10);
+        level=[3 5];
+        y=saturate(x, level);
+        plot(x, x, x, y, 'o-');
+        axis image</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function output=saturate(x, level)</a>
+0002 <span class="comment">%saturate: Saturate between two level (bound limiter)</span>
+0003 <span class="comment">%    Usage:output=saturate(x, level)</span>
+0004 <span class="comment">%        output: output value</span>
+0005 <span class="comment">%        x: input value</span>
+0006 <span class="comment">%        level: level(1)==&gt;lower bound, level(2)==&gt;upper bound</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%    For example:</span>
+0009 <span class="comment">%        x=linspace(0, 10);</span>
+0010 <span class="comment">%        level=[3 5];</span>
+0011 <span class="comment">%        y=saturate(x, level);</span>
+0012 <span class="comment">%        plot(x, x, x, y, 'o-');</span>
+0013 <span class="comment">%        axis image</span>
+0014 
+0015 <span class="comment">%    Roger Jang, 20071009</span>
+0016 
+0017 
+0018 <span class="keyword">if</span> nargin&lt;1, <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>; <span class="keyword">return</span>; <span class="keyword">end</span>
+0019 
+0020 output=x;
+0021 output(find(output&lt;=level(1)))=level(1);
+0022 output(find(output&gt;=level(2)))=level(2);
+0023 
+0024 <span class="comment">% ====== selfdemo</span>
+0025 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0026 x=linspace(0, 10);
+0027 level=[3 5];
+0028 y=feval(mfilename, x, level);
+0029 plot(x, x, x, y, <span class="string">'o-'</span>);
+0030 axis image</pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

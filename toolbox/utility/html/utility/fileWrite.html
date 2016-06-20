@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of fileWrite</title>
+  <meta name="keywords" content="fileWrite">
+  <meta name="description" content="fileWrite: Write a cell string to a file">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; fileWrite.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>fileWrite
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>fileWrite: Write a cell string to a file</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function fileWrite(cellStr, fileName) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">fileWrite: Write a cell string to a file
+    Usage: fileWrite(cellStr, fileName)
+        cellStr: Cell string to be written
+        fileName: Output file</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function fileWrite(cellStr, fileName)</a>
+0002 <span class="comment">%fileWrite: Write a cell string to a file</span>
+0003 <span class="comment">%    Usage: fileWrite(cellStr, fileName)</span>
+0004 <span class="comment">%        cellStr: Cell string to be written</span>
+0005 <span class="comment">%        fileName: Output file</span>
+0006 
+0007 <span class="comment">%    Roger Jang, 20020618</span>
+0008 
+0009 <span class="keyword">if</span> nargin==0, <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>; <span class="keyword">return</span>; <span class="keyword">end</span>
+0010 <span class="keyword">if</span> isstr(cellStr)    <span class="comment">% cellStr is a string</span>
+0011     cellStr={cellStr};
+0012 <span class="keyword">end</span>
+0013 
+0014 fid = fopen(fileName, <span class="string">'w'</span>);
+0015 <span class="keyword">if</span> fid&lt;0,
+0016     errorMessage=[<span class="string">'Cannot open &quot;'</span>, fileName, <span class="string">'&quot;!'</span>];
+0017     error(errorMessage);
+0018 <span class="keyword">end</span>
+0019 
+0020 <span class="keyword">for</span> i=1:length(cellStr),
+0021     fprintf(fid, <span class="string">'%s\r\n'</span>, cellStr{i});
+0022 <span class="keyword">end</span>
+0023 
+0024 fclose(fid);
+0025 
+0026 <span class="comment">% ====== self demo</span>
+0027 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0028 fileName = [tempdir, <span class="string">'test.txt'</span>];
+0029 fprintf(<span class="string">'fileName=%s\n'</span>, fileName);
+0030 cellStr={<span class="string">'This'</span>, <span class="string">'is'</span>, <span class="string">'a'</span>, <span class="string">'test.'</span>};
+0031 fprintf(<span class="string">'cellStr = '</span>);
+0032 disp(cellStr);
+0033 feval(mfilename, cellStr, fileName);
+0034 fprintf(<span class="string">'The contents of &quot;cellStr&quot; have been written to &quot;%s&quot;:\n'</span>, fileName);
+0035 type(fileName);</pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

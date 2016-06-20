@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of localMax</title>
+  <meta name="keywords" content="localMax">
+  <meta name="description" content="LOCALMAX Find local maxima of a vector">
+  <meta http-equiv="Content-Type" content="text/html; charset=big5">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">utility</a> &gt; localMax.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for utility&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>localMax
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>LOCALMAX Find local maxima of a vector</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function index = localmax(x, plotOpt) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> LOCALMAX Find local maxima of a vector
+    The output is a 0-1 index vector indicating where the local maxima are.
+    Usage: index = localmax(x, plotOpt)
+
+    For example:
+        t = 0:0.2:2*pi;
+        x = sin(t)+randn(size(t));
+        index = localmax(x, 1);</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function selfdemo</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function index = localmax(x, plotOpt)</a>
+0002 <span class="comment">% LOCALMAX Find local maxima of a vector</span>
+0003 <span class="comment">%    The output is a 0-1 index vector indicating where the local maxima are.</span>
+0004 <span class="comment">%    Usage: index = localmax(x, plotOpt)</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">%    For example:</span>
+0007 <span class="comment">%        t = 0:0.2:2*pi;</span>
+0008 <span class="comment">%        x = sin(t)+randn(size(t));</span>
+0009 <span class="comment">%        index = localmax(x, 1);</span>
+0010 
+0011 <span class="comment">%    Roger Jang, 1999, 20071009</span>
+0012 
+0013 <span class="keyword">if</span> nargin&lt;1, <a href="#_sub1" class="code" title="subfunction selfdemo">selfdemo</a>; <span class="keyword">return</span>; <span class="keyword">end</span>
+0014 <span class="keyword">if</span> nargin&lt;2, plotOpt=0; <span class="keyword">end</span>
+0015 
+0016 b1 = x(2:end-1)&gt;x(1:end-2);
+0017 b2 = x(2:end-1)&gt;x(3:end);
+0018 index = 0*x;
+0019 index(2:end-1) = b1 &amp; b2;
+0020 <span class="keyword">if</span> x(1)&gt;x(2), index(1)=1; <span class="keyword">end</span>
+0021 <span class="keyword">if</span> x(end)&gt;x(end-1), index(end)=1; <span class="keyword">end</span>
+0022 
+0023 <span class="keyword">if</span> plotOpt,
+0024     time = 1:length(x);
+0025     plot(time, x, time(logical(index)), x(logical(index)), <span class="string">'ro'</span>);
+0026 <span class="keyword">end</span>
+0027 
+0028 <span class="comment">% ====== Self demo</span>
+0029 <a name="_sub1" href="#_subfunctions" class="code">function selfdemo</a>
+0030 t = 0:0.2:2*pi;
+0031 x = sin(t)+randn(size(t));
+0032 index = feval(mfilename, x, 1);</pre></div>
+<hr><address>Generated on Tue 01-Jun-2010 09:50:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>
